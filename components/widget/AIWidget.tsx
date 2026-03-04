@@ -412,12 +412,12 @@ export default function AIWidget() {
   ]
 
   return (
-    <div style={{ position: 'fixed', bottom: '28px', right: '28px', zIndex: 9999 }}>
+    <div className="fixed bottom-5 right-4 sm:bottom-7 sm:right-7 z-[9999]">
       {/* Panel */}
       {open && (
-        <div className="animate-panelOpen" style={{ position: 'fixed', bottom: '100px', right: '28px', width: '440px', maxHeight: '85vh', background: '#fdf9f5', border: '1px solid #d4c4b0', display: 'flex', flexDirection: 'column', boxShadow: '0 20px 80px rgba(0,0,0,0.15)', zIndex: 9998, overflow: 'hidden', borderRadius: '12px' }}>
+        <div className="animate-panelOpen fixed bottom-20 sm:bottom-[100px] right-2 sm:right-7 w-[calc(100vw-16px)] sm:w-[380px] md:w-[420px] max-h-[80vh] sm:max-h-[85vh] bg-[#fdf9f5] border border-[#d4c4b0] flex flex-col shadow-[0_20px_80px_rgba(0,0,0,0.15)] z-[9998] overflow-hidden rounded-xl">
           {/* Header */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '18px 22px', background: '#f5ede3', borderBottom: '1px solid #d4c4b0', flexShrink: 0 }}>
+          <div className="flex items-center justify-between px-4 sm:px-5 py-3 sm:py-4 bg-[#f5ede3] border-b border-[#d4c4b0] flex-shrink-0">
             <div style={{ display: 'flex', gap: '2px' }}>
               {tabs.map(t => (
                 <button type="button" key={t.id} onClick={() => setTab(t.id)} style={{ padding: '7px 14px', background: tab === t.id ? '#a17a58' : 'none', border: tab === t.id ? '1px solid #a17a58' : '1px solid #d4c4b0', color: tab === t.id ? '#fff' : '#a17a58', fontFamily: 'var(--font-mono)', fontSize: '8px', letterSpacing: '1.5px', textTransform: 'uppercase', cursor: 'pointer', borderRadius: '4px', transition: 'all 0.2s' }}>
@@ -428,7 +428,7 @@ export default function AIWidget() {
             <button type="button" onClick={() => setOpen(false)} style={{ background: 'none', border: 'none', color: '#999', fontSize: '18px', cursor: 'pointer', lineHeight: 1, padding: '4px', transition: 'color 0.2s' }} onMouseEnter={e => (e.currentTarget.style.color = '#1a1410')} onMouseLeave={e => (e.currentTarget.style.color = '#999')}>✕</button>
           </div>
           {/* Body */}
-          <div style={{ flex: 1, overflowY: 'auto', padding: '22px', minHeight: 0 }}>
+          <div className="flex-1 overflow-y-auto p-4 sm:p-5 min-h-0">
             {tab === 'sizer' && <SizerPanel />}
             {tab === 'style' && (
               <ChatPanel
@@ -451,7 +451,7 @@ export default function AIWidget() {
       )}
       {/* FAB */}
       <div style={{ position: 'relative' }}>
-        <button type="button" className="animate-fabPulse" onClick={() => setOpen(o => !o)} style={{ width: '60px', height: '60px', background: '#a17a58', border: 'none', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.3s', boxShadow: '0 4px 20px rgba(143,101,77,0.4)' }} onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.transform = 'scale(1.08)'; }} onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.transform = 'scale(1)'; }}>
+        <button type="button" className="animate-fabPulse" onClick={() => setOpen(o => !o)} style={{ width: '52px', height: '52px', background: '#a17a58', border: 'none', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.3s', boxShadow: '0 4px 20px rgba(143,101,77,0.4)' }} onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.transform = 'scale(1.08)'; }} onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.transform = 'scale(1)'; }}>
           {open ? (
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.5"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
           ) : (
