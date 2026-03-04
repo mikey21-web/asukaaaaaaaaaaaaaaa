@@ -307,7 +307,13 @@ function ChatPanel({ endpoint, persona, quickPrompts, systemHeight, showPreview 
       })) : undefined)
       setMsgs(m => [...m, { role: 'assistant', content: reply, products }])
     } catch {
-      setMsgs(m => [...m, { role: 'assistant', content: 'Maafi (Sorry), I had a momentary connection slip. Could you repeat that for me? 🙏' }])
+      // Graceful fallback - never show errors to user
+      const fallbacks = [
+        'I appreciate your patience! Let me think about that. In the meantime, feel free to browse our collections or try a different question.',
+        'Thank you for waiting! I had a brief moment — could you share that again? I want to give you the best recommendation.',
+        'My apologies for the delay. While I reconnect, you might enjoy browsing our bestsellers at /collections/celebrity-styles'
+      ]
+      setMsgs(m => [...m, { role: 'assistant', content: fallbacks[Math.floor(Math.random() * fallbacks.length)] }])
     }
     setLoading(false); inputRef.current?.focus()
   }, [msgs, loading, endpoint, sessionId])
@@ -456,9 +462,9 @@ export default function AIWidget() {
       <div style={{ position: 'relative' }}>
         <button type="button" className="animate-fabPulse" onClick={() => setOpen(o => !o)} style={{ width: '52px', height: '52px', background: '#a17a58', border: 'none', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.3s', boxShadow: '0 4px 20px rgba(143,101,77,0.4)' }} onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.transform = 'scale(1.08)'; }} onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.transform = 'scale(1)'; }}>
           {open ? (
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.5"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
           ) : (
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.5"><path d="M12 2a7 7 0 0 1 7 7c0 3.5-2.5 6.5-6 7.4V20l-2-2-2 2v-3.6C5.5 15.5 3 12.5 3 9a7 7 0 0 1 9-7z" /><circle cx="9" cy="9" r="1" fill="#fff" /><circle cx="12" cy="9" r="1" fill="#fff" /><circle cx="15" cy="9" r="1" fill="#fff" /></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /><path d="M8 10h.01" strokeWidth="2.5" strokeLinecap="round" /><path d="M12 10h.01" strokeWidth="2.5" strokeLinecap="round" /><path d="M16 10h.01" strokeWidth="2.5" strokeLinecap="round" /></svg>
           )}
         </button>
         {/* Tooltip */}

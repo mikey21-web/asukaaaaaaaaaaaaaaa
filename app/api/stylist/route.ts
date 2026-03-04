@@ -21,16 +21,9 @@ export async function POST(req: Request) {
     }
 
     // Get a tiny subset of the catalog for context (to avoid token limits)
+    // Slim product context for lower token usage: only title, handle, price
     const allProducts = getAllProducts()
-    const productContext = allProducts.map(p => ({
-      title: p.title,
-      handle: p.handle,
-      price: p.price,
-      type: p.handle.includes('sherwani') ? 'Sherwani' :
-        p.handle.includes('suit') ? 'Suit' :
-          p.handle.includes('kurta') ? 'Kurta' :
-            p.handle.includes('indowestern') ? 'Indo-western' : 'Other'
-    })).slice(0, 150) // Only pass 150 items to keep prompt size reasonable
+    const productContext = allProducts.slice(0, 80).map(p => `${p.title}|${p.handle}|${p.price}`).join('\n')
 
     const systemPrompt = `You are **Ayaan**, the personal AI fashion stylist at Asuka Couture — one of India's most prestigious luxury menswear houses (est. 1991).
 
@@ -55,8 +48,8 @@ PRODUCT RECOMMENDATIONS:
 - Include price naturally: "The **Royal Navy Bandhgala** at ₹24,990 would be stunning for your reception"
 - Always suggest complementary accessories or styling tips
 
-CATALOG:
-${JSON.stringify(productContext)}
+CATALOG (format: Title|handle|price per line):
+${productContext}
 
 RESPONSE FORMAT (MUST be valid JSON, no markdown wrapping):
 {
