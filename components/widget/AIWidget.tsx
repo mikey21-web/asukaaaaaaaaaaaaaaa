@@ -408,7 +408,7 @@ function ChatPanel({ endpoint, persona, quickPrompts, systemHeight, showPreview 
         ))}
       </div>
       {/* Messages */}
-      <div className="chat-scroll" style={{ flex: 1, overflowY: 'auto', padding: '15px' }}>
+      <div className="chat-scroll" style={{ flex: 1, overflowY: 'auto', padding: '15px', WebkitOverflowScrolling: 'touch', overscrollBehaviorY: 'contain' }}>
         {msgs.map((m, i) => {
           const cleanContent = m.content.replace(/[✨👋✦]/g, '').trim()
           return (
@@ -512,7 +512,9 @@ export default function AIWidget({ initialTab = 'style', isFloating = false }: {
       {/* Body */}
       <div className="flex-1 flex flex-col overflow-hidden relative" style={{ minHeight: 0 }}>
         {persona === 'sizer' ? (
-          <div className="flex-1 overflow-y-auto p-4 sm:p-6"><SizerPanel /></div>
+          <div className="flex-1 overflow-y-auto p-4 sm:p-6" style={{ WebkitOverflowScrolling: 'touch', overscrollBehaviorY: 'contain' }}>
+            <SizerPanel />
+          </div>
         ) : (
           <ChatPanel
             key={persona}
@@ -544,9 +546,10 @@ export default function AIWidget({ initialTab = 'style', isFloating = false }: {
 
       {open && (
         <>
-          {/* Mobile Overlay (Only needed if not full screen, kept for safety) */}
+          {/* Mobile Overlay */}
           <div className="fixed inset-0 bg-black/40 z-[9998] sm:hidden animate-fadeIn" onClick={() => setOpen(false)} />
-          <div className="fixed inset-0 sm:inset-auto sm:bottom-24 sm:right-7 z-[9999] w-full sm:w-[380px] h-[100svh] sm:h-[380px] sm:max-h-[calc(100vh-120px)] flex flex-col animate-panelOpen shadow-2xl sm:rounded-2xl overflow-hidden sm:border border-[#e0d5c8] bg-white">
+          {/* Mobile vs Desktop Floating Wrapper */}
+          <div className="fixed inset-0 sm:inset-auto sm:bottom-24 sm:right-7 z-[9999] w-full sm:w-[380px] sm:h-[380px] sm:max-h-[calc(100vh-120px)] flex flex-col animate-panelOpen shadow-2xl sm:rounded-2xl overflow-hidden sm:border border-[#e0d5c8] bg-white">
             <button onClick={() => setOpen(false)} className="absolute top-2 right-2 sm:top-4 sm:right-4 z-[100] w-8 h-8 flex items-center justify-center bg-[#f5ede3] rounded-full text-[#a17a58] hover:bg-[#a17a58] hover:text-white transition-colors">✕</button>
             {widgetContent}
           </div>
