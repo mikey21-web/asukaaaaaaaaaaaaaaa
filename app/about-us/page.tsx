@@ -1,7 +1,6 @@
 'use client'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import AIWidget from '@/components/widget/AIWidget'
 
 export default function AboutUs() {
   return (
@@ -10,9 +9,9 @@ export default function AboutUs() {
       <main>
         {/* Hero Section */}
         <section style={{ position: 'relative', height: '600px', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-          <img 
-            src="https://asukacouture.com/cdn/shop/files/Screenshot_2025-02-22_at_2.33.36_PM.png?v=1740215030" 
-            alt="About Asuka" 
+          <img
+            src="https://asukacouture.com/cdn/shop/files/Screenshot_2025-02-22_at_2.33.36_PM.png?v=1740215030"
+            alt="About Asuka"
             style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0, opacity: 0.8 }}
           />
           <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', color: 'white' }}>
@@ -54,7 +53,6 @@ export default function AboutUs() {
         </section>
       </main>
       <Footer />
-      <AIWidget />
     </div>
   )
 }

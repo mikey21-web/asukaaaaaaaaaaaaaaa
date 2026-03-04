@@ -1,7 +1,6 @@
 'use client'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import AIWidget from '@/components/widget/AIWidget'
 
 export default function Contact() {
   return (
@@ -54,7 +53,6 @@ export default function Contact() {
         </div>
       </main>
       <Footer />
-      <AIWidget />
     </div>
   )
 }

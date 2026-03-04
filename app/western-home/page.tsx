@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import AIWidget from '@/components/widget/AIWidget'
 import { HERO_WESTERN } from '@/lib/site-data'
 
 import { getFeaturedProducts, type CatalogProduct } from '@/lib/catalog'
@@ -139,7 +138,6 @@ export default function WesternHome() {
 
       </main>
       <Footer />
-      <AIWidget />
     </>
   )
 }

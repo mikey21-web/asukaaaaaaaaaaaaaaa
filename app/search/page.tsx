@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import AIWidget from '@/components/widget/AIWidget'
 import Link from 'next/link'
 
 export default function SearchPage() {
@@ -20,7 +19,7 @@ export default function SearchPage() {
       try {
         const res = await fetch('/data/all-products.json')
         const all = await res.json()
-        const filtered = all.filter((p: any) => 
+        const filtered = all.filter((p: any) =>
           p.title.toLowerCase().includes(query.toLowerCase()) ||
           p.product_type?.toLowerCase().includes(query.toLowerCase()) ||
           (Array.isArray(p.tags) ? p.tags : (p.tags?.split(', ') || [])).some((t: string) => t.toLowerCase().includes(query.toLowerCase()))
@@ -41,11 +40,11 @@ export default function SearchPage() {
         <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center', marginBottom: '60px' }}>
           <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: '40px', fontWeight: 300, color: '#1a1410', marginBottom: '24px' }}>SEARCH</h1>
           <div style={{ position: 'relative' }}>
-            <input 
-              type="text" 
+            <input
+              type="text"
               value={query}
               onChange={e => setQuery(e.target.value)}
-              placeholder="Search for products, collections..." 
+              placeholder="Search for products, collections..."
               autoFocus
               style={{ width: '100%', padding: '16px 24px', fontSize: '18px', border: '1px solid #d4c4b0', background: '#FAF6F1', outline: 'none', fontFamily: 'var(--font-sans)', fontWeight: 300 }}
             />
@@ -74,7 +73,6 @@ export default function SearchPage() {
         </div>
       </main>
       <Footer />
-      <AIWidget />
     </div>
   )
 }

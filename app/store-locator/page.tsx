@@ -1,7 +1,6 @@
 'use client'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import AIWidget from '@/components/widget/AIWidget'
 
 const STORES = [
   {
@@ -56,7 +55,6 @@ export default function StoreLocator() {
         </div>
       </main>
       <Footer />
-      <AIWidget />
     </div>
   )
 }
