@@ -9,5 +9,3 @@ out/
 # Data and Scripts
 *.html
 *.py
-lib/*.json
-lib/full_catalog_audit.json
