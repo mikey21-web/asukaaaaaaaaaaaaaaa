@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState } from 'react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
@@ -22,15 +23,15 @@ export default function Home() {
           {/* Ethnic half */}
           <Link href="/ethnic-home" onMouseEnter={() => setHeroTab('ethnic')}
             className="relative overflow-hidden block h-[50vh] md:h-auto">
-            <img src={HERO_ETHNIC} alt="Ethnic Wear"
-              className={`w-full h-full object-cover absolute inset-0 transition-all duration-500 ${heroTab === 'ethnic' ? 'scale-[1.02]' : 'scale-100'}`} />
+            <Image src={HERO_ETHNIC} alt="Ethnic Wear" fill priority sizes="(max-width: 768px) 100vw, 50vw"
+              className={`object-cover absolute inset-0 transition-all duration-500 ${heroTab === 'ethnic' ? 'scale-[1.02]' : 'scale-100'}`} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
           </Link>
           {/* Western half */}
           <Link href="/western-home" onMouseEnter={() => setHeroTab('western')}
             className="relative overflow-hidden block h-[50vh] md:h-auto">
-            <img src={HERO_WESTERN} alt="Western Wear"
-              className={`w-full h-full object-cover absolute inset-0 transition-all duration-500 ${heroTab === 'western' ? 'scale-[1.02]' : 'scale-100'}`} />
+            <Image src={HERO_WESTERN} alt="Western Wear" fill priority sizes="(max-width: 768px) 100vw, 50vw"
+              className={`object-cover absolute inset-0 transition-all duration-500 ${heroTab === 'western' ? 'scale-[1.02]' : 'scale-100'}`} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
           </Link>
         </section>
@@ -117,13 +118,13 @@ function ProductCard({ product }: { product: CatalogProduct }) {
       <div className="product-img-wrap" style={{ position: 'relative', overflow: 'hidden', marginBottom: '12px', background: '#f5f0e8' }}>
         <div style={{ paddingBottom: '125%', position: 'relative' }}>
           {product.first_image && product.first_image !== 'NO IMAGE' && (
-            <img src={product.first_image} alt={product.title}
-              style={{ position: 'absolute', width: '100%', height: '100%', objectFit: 'cover', transition: 'all 0.5s ease', transform: hovered ? 'scale(1.04)' : 'scale(1)' }} />
+            <Image src={product.first_image} alt={product.title} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              style={{ objectFit: 'cover', transition: 'all 0.5s ease', transform: hovered ? 'scale(1.04)' : 'scale(1)' }} />
           )}
           {/* Secondary image on hover */}
           {product.all_images[1] && (
-            <img src={product.all_images[1]} alt=""
-              style={{ position: 'absolute', width: '100%', height: '100%', objectFit: 'cover', opacity: hovered ? 1 : 0, transition: 'all 0.5s ease' }} />
+            <Image src={product.all_images[1]} alt="" fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              style={{ objectFit: 'cover', opacity: hovered ? 1 : 0, transition: 'all 0.5s ease' }} />
           )}
           {/* SHOP NOW button on hover */}
           <button type="button" style={{

@@ -148,7 +148,7 @@ export default function ProductPage() {
                                         </a>
                                     </div>
                                 </div>
-                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '12px' }}>
                                     {SIZES.map(size => (
                                         <button type="button" key={size} onClick={() => setSelectedSize(size)}
                                             style={{
@@ -161,6 +161,10 @@ export default function ProductPage() {
                                         </button>
                                     ))}
                                 </div>
+                                <button type="button" onClick={() => { if ((window as any).openAsukaPanel) (window as any).openAsukaPanel('sizer') }} className="flex items-center gap-2 text-[#a17a58] hover:text-[#1a1410] font-sans text-sm mb-6 pb-1 border-b border-[#a17a58]/30 hover:border-[#1a1410] transition-colors w-fit">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg>
+                                    Find Your Perfect Fit with AI
+                                </button>
                                 {recommendedSize && confidence > 0 && (
                                     <div style={{ marginTop: '12px', padding: '10px 14px', background: '#f5f0e8', borderLeft: `3px solid ${BRAND_COPPER}` }}>
                                         <div style={{ fontFamily: 'var(--font-sans)', fontSize: '12px', color: BRAND_INK, marginBottom: '6px' }}>
@@ -200,10 +204,9 @@ export default function ProductPage() {
                                     <summary style={{ fontFamily: 'var(--font-sans)', fontSize: '13px', fontWeight: 500, cursor: 'pointer', listStyle: 'none', display: 'flex', justifyContent: 'space-between', textTransform: 'uppercase', letterSpacing: '1px' }}>
                                         Description <span>+</span>
                                     </summary>
-                                    <div style={{ paddingTop: '16px', fontFamily: 'var(--font-sans)', fontSize: '14px', color: '#555', lineHeight: '1.8' }}>
-                                        {product.description && product.description !== 'No description'
-                                            ? <div dangerouslySetInnerHTML={{ __html: product.description }} />
-                                            : 'Individually handcrafted with premium fabrics and artisanal attention to detail.'}
+                                    <div style={{ fontFamily: 'var(--font-serif)', fontSize: '16px', lineHeight: 1.6, color: '#666', marginTop: '16px' }}>
+                                        {product.description && product.description !== 'No description' && <p className="mb-4"><strong>Details:</strong> {product.description.replace(/<[^>]*>?/gm, '')}</p>}
+                                        <p>Crafted with precision, this piece embodies the ritual of fine dressing. Each garment is traditionally tailored holding true to ASUKĀ’s 35 years of heritage.</p>
                                     </div>
                                 </details>
                                 <details style={{ padding: '20px 0', borderBottom: '1px solid #eee' }}>
@@ -218,6 +221,28 @@ export default function ProductPage() {
                                 </details>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                {/* Complete the Look Cross-Sell */}
+                <div className="max-w-[1200px] mx-auto px-4 md:px-10 mt-24">
+                    <h3 className="font-serif text-3xl font-light text-[#1a1410] text-center mb-10">Complete the Look</h3>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+                        {['embroidered-shoes-for-men', 'embroidered-shoes-for-men', 'embroidered-stoles', 'embroidered-stoles'].map((col, i) => {
+                            const p = getProductByHandle(col === 'embroidered-shoes-for-men' ? (i === 0 ? 'olive-green-velvet-embroidered-shoes' : 'black-velvet-embroidered-shoes') : (i === 2 ? 'ivory-embroidered-stole' : 'maroon-velvet-embroidered-stole'))
+                            if (!p) return null
+                            return (
+                                <Link href={`/products/${p.handle}`} key={p.handle} className="group block no-underline">
+                                    <div className="aspect-[3/4] overflow-hidden mb-4 bg-[#f5ede3] product-img-wrap">
+                                        <img src={p.first_image} alt={p.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                                    </div>
+                                    <div className="text-center">
+                                        <h4 className="font-serif text-sm md:text-base text-[#1a1410] mb-2">{p.title}</h4>
+                                        <p className="font-sans text-[11px] text-[#7A6A5A] uppercase tracking-wider">{formatPrice(p.price)}</p>
+                                    </div>
+                                </Link>
+                            )
+                        })}
                     </div>
                 </div>
 

@@ -35,6 +35,7 @@ export const metadata: Metadata = {
   title: 'Asuka Couture — Rituals of Fine Dressing',
   description: 'Luxury Indian menswear with 35 years of heritage. Bespoke sherwanis, kurtas, suits and indo-western. Hyderabad · Mumbai · Ahmedabad.',
   keywords: ['luxury menswear', 'indian menswear', 'sherwani', 'kurta', 'bespoke', 'asuka couture'],
+  manifest: '/manifest.json',
   openGraph: {
     title: 'Asuka Couture — Rituals of Fine Dressing',
     description: 'Luxury Indian menswear. 35 years of heritage.',
