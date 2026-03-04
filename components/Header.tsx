@@ -43,86 +43,73 @@ export default function Header() {
   if (isHome) {
     return (
       <>
-        {/* Brown announcement bar */}
-        <div style={{ background: '#a17a58', color: 'white', padding: '10px 0', textAlign: 'center', position: 'relative', zIndex: 1002 }}>
-          <a href="/store-locator" style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', letterSpacing: '3px', fontWeight: 500, color: 'white', textDecoration: 'none' }}>
-            HYDERABAD | MUMBAI | AHMEDABAD
+        {/* Brown announcement bar — stays at top, not sticky */}
+        <div className="bg-[#a17a58] text-white text-center relative z-[1002] py-2.5">
+          <a href="/store-locator" className="font-mono text-[11px] tracking-[3px] font-medium text-white no-underline">
+            HYDERABAD &nbsp;|&nbsp; MUMBAI &nbsp;|&nbsp; AHMEDABAD
           </a>
         </div>
 
-        {/* Floating nav — transparent, overlays the hero image */}
+        {/* Minimal floating header — matches original asukacouture.com homepage */}
         <header
-          className={`${isScrolled ? 'fixed top-0 bg-[#1a1410]/95 backdrop-blur-md h-16 shadow-lg shadow-black/20' : 'relative bg-transparent h-28'} left-0 right-0 z-[1001] transition-all duration-500 ease-in-out border-b border-white/5`}
+          className={`${isScrolled ? 'fixed top-0 bg-[#1a1410]/95 backdrop-blur-md shadow-lg shadow-black/20' : 'absolute top-[41px] bg-transparent'} left-0 right-0 z-[1001] h-14 transition-all duration-300`}
         >
-          <div className="grid grid-cols-[1.5fr_1fr_1.5fr] items-center px-4 md:px-12 h-full max-w-[1800px] mx-auto w-full">
+          <div className="flex items-center justify-between px-4 md:px-8 h-full max-w-[1800px] mx-auto w-full">
 
-            {/* LEFT: Nav */}
-            <div className="flex items-center gap-4">
-              {/* Hamburger (Tablet/Mobile) */}
-              <button onClick={() => setIsMenuOpen(true)} className="md:hidden lg:hidden bg-transparent border-none text-white p-2">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="18" x2="21" y2="18" /></svg>
+            {/* LEFT: Hamburger + Logo */}
+            <div className="flex items-center gap-3">
+              <button onClick={() => setIsMenuOpen(true)} className="bg-transparent border-none text-white p-1 cursor-pointer">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="18" x2="21" y2="18" /></svg>
               </button>
-
-              {/* Desktop Links */}
-              <div className="hidden md:flex items-center gap-4 lg:gap-6 overflow-hidden">
-                <Link href="/ethnic-home" className="text-white no-underline text-[8.5px] lg:text-[9px] font-mono tracking-[1.5px] font-medium uppercase hover:text-[#a17a58] transition-colors whitespace-nowrap">ETHNIC</Link>
-                <Link href="/western-home" className="text-white no-underline text-[8.5px] lg:text-[9px] font-mono tracking-[1.5px] font-medium uppercase hover:text-[#a17a58] transition-colors whitespace-nowrap">WESTERN</Link>
-                <Link href="/collections/celebrity-styles" className="hidden xl:block text-white no-underline text-[8.5px] lg:text-[9px] font-mono tracking-[1.5px] font-medium uppercase hover:text-[#a17a58] transition-colors whitespace-nowrap">CELEBRITY STYLES</Link>
-              </div>
-            </div>
-
-            {/* CENTER: Stacked Logo */}
-            <div className="flex justify-center px-2">
-              <Link href="/" className="flex flex-col items-center group no-underline">
+              <Link href="/" className="flex items-center gap-2 no-underline">
                 <img src="https://asukacouture.com/cdn/shop/files/Untitled_design_70x.png?v=1672665412"
-                  alt="Asuka"
-                  className={`${isScrolled ? 'h-5' : 'h-10'} brightness-0 invert transition-all duration-300`}
-                />
-                <span className={`${isScrolled ? 'text-lg tracking-[4px]' : 'text-2xl tracking-[8px]'} font-serif text-white uppercase font-light transition-all duration-300 mt-1`}>ASUKĀ</span>
+                  alt="Asuka" className="h-6 brightness-0 invert" />
+                <span className="font-serif text-white text-lg tracking-[4px] uppercase font-light hidden sm:inline">ASUKĀ</span>
               </Link>
             </div>
+
+            {/* CENTER: Desktop nav links (hidden on mobile) */}
+            <nav className="hidden lg:flex items-center gap-5">
+              <Link href="/ethnic-home" className="text-white no-underline text-[9px] font-mono tracking-[1.5px] font-medium uppercase hover:text-[#a17a58] transition-colors">ETHNIC</Link>
+              <Link href="/western-home" className="text-white no-underline text-[9px] font-mono tracking-[1.5px] font-medium uppercase hover:text-[#a17a58] transition-colors">WESTERN</Link>
+              <Link href="/collections/celebrity-styles" className="text-white no-underline text-[9px] font-mono tracking-[1.5px] font-medium uppercase hover:text-[#a17a58] transition-colors">CELEBRITY STYLES</Link>
+            </nav>
 
             {/* RIGHT: Actions */}
-            <div className="flex justify-end items-center gap-4 lg:gap-6">
-              <div className="hidden md:flex items-center gap-5">
-                <Link href="/make-it-yourself" className="font-mono text-[9px] tracking-[1.5px] text-white no-underline opacity-80 hover:opacity-100 whitespace-nowrap">
-                  ✦ MAKE IT YOURSELF
-                </Link>
-                <Link href="/sizing" className="bg-white text-[#a17a58] px-4 py-2 text-[9px] font-mono tracking-[1.5px] no-underline font-bold whitespace-nowrap hover:bg-[#a17a58] hover:text-white transition-colors">
-                  AI SIZER
-                </Link>
-              </div>
-              <Link href="/search" className="text-white p-2">
+            <div className="flex items-center gap-3">
+              <Link href="/make-it-yourself" className="hidden md:inline font-mono text-[9px] tracking-[1.5px] text-white no-underline opacity-80 hover:opacity-100 whitespace-nowrap">✦ MAKE IT YOURSELF</Link>
+              <Link href="/sizing" className="hidden md:inline bg-white text-[#a17a58] px-3 py-1.5 text-[9px] font-mono tracking-[1.5px] no-underline font-bold whitespace-nowrap hover:bg-[#a17a58] hover:text-white transition-colors">AI SIZER</Link>
+              <Link href="/search" className="text-white p-1">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="11" cy="11" r="7" /><path d="m16.5 16.5 4 4" /></svg>
               </Link>
+              <button type="button" className="bg-transparent border-none text-white p-1 cursor-pointer hidden sm:block">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" /><line x1="3" y1="6" x2="21" y2="6" /><path d="M16 10a4 4 0 0 1-8 0" /></svg>
+              </button>
             </div>
           </div>
         </header>
 
-        {/* This pull the Hero section under the transparent header */}
-        {!isScrolled && <div className="h-0 -mb-28" />}
-
         {/* MOBILE OVERLAY MENU */}
         {isMenuOpen && (
-          <div style={{ position: 'fixed', inset: 0, background: 'white', zIndex: 2000, overflowY: 'auto' }}>
-            <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '20px' }}>
-              <button onClick={() => setIsMenuOpen(false)} style={{ background: 'none', border: 'none', color: '#1a1410' }}>
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+          <div className="fixed inset-0 bg-white z-[2000] overflow-y-auto">
+            <div className="flex justify-end p-5">
+              <button onClick={() => setIsMenuOpen(false)} className="bg-transparent border-none text-[#1a1410] cursor-pointer">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
               </button>
             </div>
-            <div style={{ padding: '0 40px 40px' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-                <Link href="/ethnic-home" onClick={() => setIsMenuOpen(false)} style={{ fontSize: '24px', fontFamily: 'var(--font-serif)', textDecoration: 'none', color: '#1a1410', letterSpacing: '2px' }}>ETHNIC WEAR</Link>
-                <Link href="/western-home" onClick={() => setIsMenuOpen(false)} style={{ fontSize: '24px', fontFamily: 'var(--font-serif)', textDecoration: 'none', color: '#1a1410', letterSpacing: '2px' }}>WESTERN WEAR</Link>
-                <Link href="/collections/celebrity-styles" onClick={() => setIsMenuOpen(false)} style={{ fontSize: '24px', fontFamily: 'var(--font-serif)', textDecoration: 'none', color: '#1a1410', letterSpacing: '2px' }}>CELEBRITY STYLES</Link>
+            <div className="px-8 pb-10">
+              <div className="flex flex-col gap-8">
+                <Link href="/ethnic-home" onClick={() => setIsMenuOpen(false)} className="text-2xl font-serif no-underline text-[#1a1410] tracking-wider">ETHNIC WEAR</Link>
+                <Link href="/western-home" onClick={() => setIsMenuOpen(false)} className="text-2xl font-serif no-underline text-[#1a1410] tracking-wider">WESTERN WEAR</Link>
+                <Link href="/collections/celebrity-styles" onClick={() => setIsMenuOpen(false)} className="text-2xl font-serif no-underline text-[#1a1410] tracking-wider">CELEBRITY STYLES</Link>
 
-                <hr style={{ border: 'none', borderTop: '1px solid #eee' }} />
+                <hr className="border-none border-t border-[#eee]" />
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  <Link href="/make-it-yourself" onClick={() => setIsMenuOpen(false)} style={{ fontSize: '14px', fontFamily: 'var(--font-mono)', textDecoration: 'none', color: '#a17a58' }}>MAKE IT YOURSELF</Link>
-                  <Link href="/stylist" onClick={() => setIsMenuOpen(false)} style={{ fontSize: '14px', fontFamily: 'var(--font-mono)', textDecoration: 'none', color: '#1a1410' }}>AI STYLIST</Link>
-                  <Link href="/sizing" onClick={() => setIsMenuOpen(false)} style={{ fontSize: '14px', fontFamily: 'var(--font-mono)', textDecoration: 'none', color: '#1a1410' }}>AI SIZER</Link>
-                  <Link href="/store-locator" onClick={() => setIsMenuOpen(false)} style={{ fontSize: '14px', fontFamily: 'var(--font-mono)', textDecoration: 'none', color: '#1a1410' }}>STORE LOCATOR</Link>
+                <div className="flex flex-col gap-4">
+                  <Link href="/make-it-yourself" onClick={() => setIsMenuOpen(false)} className="text-sm font-mono no-underline text-[#a17a58]">MAKE IT YOURSELF</Link>
+                  <Link href="/stylist" onClick={() => setIsMenuOpen(false)} className="text-sm font-mono no-underline text-[#1a1410]">AI STYLIST</Link>
+                  <Link href="/sizing" onClick={() => setIsMenuOpen(false)} className="text-sm font-mono no-underline text-[#1a1410]">AI SIZER</Link>
+                  <Link href="/store-locator" onClick={() => setIsMenuOpen(false)} className="text-sm font-mono no-underline text-[#1a1410]">STORE LOCATOR</Link>
                 </div>
               </div>
             </div>
