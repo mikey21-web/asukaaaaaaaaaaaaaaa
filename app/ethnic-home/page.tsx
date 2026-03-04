@@ -46,13 +46,13 @@ function ProductCard({ product }: { product: CatalogProduct }) {
 
 function FeaturedSection({ title, products, viewAllHref }: { title: string; products: CatalogProduct[]; viewAllHref: string }) {
   return (
-    <section style={{ padding: '60px 0' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
-          <h2 style={{ fontFamily: 'var(--font-sans)', fontSize: '28px', fontWeight: 400, color: '#1a1410', textTransform: 'uppercase', letterSpacing: '2px', margin: 0 }}>{title}</h2>
-          <Link href={viewAllHref} style={{ fontFamily: 'var(--font-sans)', fontSize: '12px', color: '#a17a58', textDecoration: 'underline', textUnderlineOffset: '4px', letterSpacing: '1px' }}>View all</Link>
+    <section className="py-12 sm:py-16 md:py-20">
+      <div className="page-width">
+        <div className="flex justify-between items-center mb-10">
+          <h2 className="font-sans text-[24px] sm:text-[28px] font-normal text-[#1a1410] uppercase tracking-[2px] m-0">{title}</h2>
+          <Link href={viewAllHref} className="font-sans text-[12px] text-[#a17a58] no-underline underline-offset-4 tracking-[1px]">View all</Link>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '20px' }}>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
           {products.map(p => <ProductCard key={p.id} product={p} />)}
         </div>
       </div>
@@ -68,9 +68,9 @@ export default function EthnicHome() {
 
         {/* ═══ SHOP BY OCCASION ═══ */}
         <section style={{ padding: '60px 0' }}>
-          <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px' }}>
+          <div style={{ maxWidth: '1200px', margin: '0 auto' }} className="px-6 sm:px-10">
             <h2 style={{ fontFamily: 'var(--font-sans)', fontSize: '28px', fontWeight: 400, color: '#1a1410', textTransform: 'lowercase', letterSpacing: '2px', textAlign: 'center', marginBottom: '40px' }}>shop by occasion</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '16px' }}>
+            <div style={{ gap: '16px' }} className="grid grid-cols-2 md:grid-cols-4">
               {OCCASIONS.map(occ => (
                 <Link key={occ.name} href={occ.href} style={{ textDecoration: 'none', position: 'relative', aspectRatio: '3/4', overflow: 'hidden', background: '#f5f0e8', display: 'block' }}>
                   {occ.img && <img src={occ.img} alt={occ.name} style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0 }} />}
@@ -86,9 +86,9 @@ export default function EthnicHome() {
 
         {/* ═══ TIMELESS TRADITIONS ═══ */}
         <section style={{ padding: '60px 0', background: '#FAF6F1' }}>
-          <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px' }}>
+          <div style={{ maxWidth: '1200px', margin: '0 auto' }} className="px-6 sm:px-10">
             <h2 style={{ fontFamily: 'var(--font-sans)', fontSize: '28px', fontWeight: 400, color: '#1a1410', textTransform: 'capitalize', letterSpacing: '2px', textAlign: 'center', marginBottom: '40px' }}>Timeless Traditions</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '16px' }}>
+            <div style={{ gap: '16px' }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
               {TRADITIONS.map(t => (
                 <Link key={t.name} href={t.href} style={{
                   textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center',

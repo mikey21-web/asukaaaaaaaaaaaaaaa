@@ -29,6 +29,7 @@ export default function Header() {
   const pathname = usePathname()
   const [isScrolled, setIsScrolled] = useState(false)
   const [showAcc, setShowAcc] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const isHome = pathname === '/'
   const isWestern = pathname?.includes('western') || pathname?.includes('shirts') || pathname?.includes('tuxedo') || pathname?.includes('jackets') || pathname?.includes('casual-suits') || pathname?.includes('co-ord') || pathname?.includes('suit-set')
 
@@ -50,18 +51,18 @@ export default function Header() {
         </div>
 
         {/* Floating nav — transparent, overlays the hero image */}
-        <header style={{
-          position: 'absolute', top: '39px', left: 0, right: 0, zIndex: 1001,
-          background: isScrolled ? 'rgba(26,20,16,0.85)' : 'transparent',
-          transition: 'background 0.4s ease',
-          backdropFilter: isScrolled ? 'blur(4px)' : 'none',
-        }}>
-          <div style={{
-            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-            padding: '0 48px', height: '80px', maxWidth: '1600px', margin: '0 auto',
-          }}>
-            {/* LEFT: Primary nav */}
-            <nav style={{ display: 'flex', gap: '28px', alignItems: 'center' }}>
+        <header
+          style={{ transition: 'background 0.4s ease' }}
+          className={`fixed top-[39px] left-0 right-0 z-[1001] ${isScrolled ? 'bg-[#1a1410]/85 backdrop-blur-[4px]' : 'bg-transparent'}`}
+        >
+          <div className="flex items-center justify-between px-5 h-20 max-w-[1600px] mx-auto relative">
+            {/* MOBILE ONLY: Hamburger */}
+            <button onClick={() => setIsMenuOpen(true)} style={{ display: 'block', background: 'none', border: 'none', color: 'white' }} className="md:hidden">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="18" x2="21" y2="18" /></svg>
+            </button>
+
+            {/* LEFT: Primary nav (Desktop only) */}
+            <nav style={{ gap: '28px', alignItems: 'center' }} className="hidden md:flex">
               {['ETHNIC', 'WESTERN', 'CELEBRITY STYLES'].map(item => (
                 <Link key={item}
                   href={item === 'ETHNIC' ? '/ethnic-home' : item === 'WESTERN' ? '/western-home' : '/collections/celebrity-styles'}
@@ -76,25 +77,56 @@ export default function Header() {
             {/* CENTER: ASUKA logo */}
             <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>
               <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <img src="https://asukacouture.com/cdn/shop/files/Untitled_design_70x.png?v=1672665412" alt="Asuka" style={{ height: '40px', filter: 'brightness(0) invert(1)' }} />
-                <span style={{ fontFamily: 'var(--font-serif)', fontSize: '32px', letterSpacing: '10px', color: 'white', textTransform: 'uppercase', fontWeight: 300 }}>ASUKĀ</span>
+                <img src="https://asukacouture.com/cdn/shop/files/Untitled_design_70x.png?v=1672665412" alt="Asuka" style={{ height: '32px', filter: 'brightness(0) invert(1)' }} />
+                <span style={{ fontFamily: 'var(--font-serif)', fontSize: '24px', letterSpacing: '6px', color: 'white', textTransform: 'uppercase', fontWeight: 300 }} className="hidden sm:inline">ASUKĀ</span>
               </Link>
             </div>
 
-            {/* RIGHT: AI links */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+            {/* RIGHT: AI links (Desktop only) */}
+            <div style={{ gap: '20px', alignItems: 'center' }} className="hidden md:flex">
               <Link href="/make-it-yourself" style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', letterSpacing: '2px', color: 'white', textDecoration: 'none', opacity: 0.85, whiteSpace: 'nowrap' }}>
                 ✦ MAKE IT YOURSELF
-              </Link>
-              <Link href="/stylist" style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', letterSpacing: '2px', color: 'rgba(255,255,255,0.75)', textDecoration: 'none', whiteSpace: 'nowrap' }}>
-                AI STYLIST
               </Link>
               <Link href="/sizing" style={{ background: 'white', color: '#a17a58', padding: '8px 18px', fontSize: '10px', fontFamily: 'var(--font-mono)', letterSpacing: '2px', textDecoration: 'none', fontWeight: 700, whiteSpace: 'nowrap' }}>
                 AI SIZER
               </Link>
             </div>
+
+            {/* MOBILE ONLY: Right actions */}
+            <div className="flex md:hidden items-center gap-4">
+              <Link href="/search" style={{ color: 'white' }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="11" cy="11" r="7" /><path d="m16.5 16.5 4 4" /></svg>
+              </Link>
+            </div>
           </div>
         </header>
+
+        {/* MOBILE OVERLAY MENU */}
+        {isMenuOpen && (
+          <div style={{ position: 'fixed', inset: 0, background: 'white', zIndex: 2000, overflowY: 'auto' }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '20px' }}>
+              <button onClick={() => setIsMenuOpen(false)} style={{ background: 'none', border: 'none', color: '#1a1410' }}>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+              </button>
+            </div>
+            <div style={{ padding: '0 40px 40px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                <Link href="/ethnic-home" onClick={() => setIsMenuOpen(false)} style={{ fontSize: '24px', fontFamily: 'var(--font-serif)', textDecoration: 'none', color: '#1a1410', letterSpacing: '2px' }}>ETHNIC WEAR</Link>
+                <Link href="/western-home" onClick={() => setIsMenuOpen(false)} style={{ fontSize: '24px', fontFamily: 'var(--font-serif)', textDecoration: 'none', color: '#1a1410', letterSpacing: '2px' }}>WESTERN WEAR</Link>
+                <Link href="/collections/celebrity-styles" onClick={() => setIsMenuOpen(false)} style={{ fontSize: '24px', fontFamily: 'var(--font-serif)', textDecoration: 'none', color: '#1a1410', letterSpacing: '2px' }}>CELEBRITY STYLES</Link>
+
+                <hr style={{ border: 'none', borderTop: '1px solid #eee' }} />
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <Link href="/make-it-yourself" onClick={() => setIsMenuOpen(false)} style={{ fontSize: '14px', fontFamily: 'var(--font-mono)', textDecoration: 'none', color: '#a17a58' }}>MAKE IT YOURSELF</Link>
+                  <Link href="/stylist" onClick={() => setIsMenuOpen(false)} style={{ fontSize: '14px', fontFamily: 'var(--font-mono)', textDecoration: 'none', color: '#1a1410' }}>AI STYLIST</Link>
+                  <Link href="/sizing" onClick={() => setIsMenuOpen(false)} style={{ fontSize: '14px', fontFamily: 'var(--font-mono)', textDecoration: 'none', color: '#1a1410' }}>AI SIZER</Link>
+                  <Link href="/store-locator" onClick={() => setIsMenuOpen(false)} style={{ fontSize: '14px', fontFamily: 'var(--font-mono)', textDecoration: 'none', color: '#1a1410' }}>STORE LOCATOR</Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </>
     )
   }
@@ -115,25 +147,24 @@ export default function Header() {
       </div>
 
       {/* Sticky header — teal on western pages, white on ethnic */}
-      <header style={{
-        position: 'sticky', top: 0, zIndex: 1001,
-        background: 'white',
-        borderBottom: isWestern ? 'none' : '1px solid #eee',
-        boxShadow: isScrolled ? '0 2px 16px rgba(0,0,0,0.06)' : 'none',
-        transition: 'box-shadow 0.3s',
-      }}>
-        <div style={{
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          padding: '0 48px', height: '72px', maxWidth: '1600px', margin: '0 auto',
-        }}>
+      <header
+        style={{ transition: 'box-shadow 0.3s' }}
+        className={`sticky top-0 z-[1001] bg-white ${isWestern ? 'border-none' : 'border-b border-[#eee]'} ${isScrolled ? 'shadow-md shadow-black/5' : 'shadow-none'}`}
+      >
+        <div className="flex items-center justify-between px-5 h-16 max-w-[1600px] mx-auto">
+          {/* MOBILE ONLY: Hamburger */}
+          <button onClick={() => setIsMenuOpen(true)} style={{ display: 'block', background: 'none', border: 'none', color: '#1a1410' }} className="md:hidden">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="18" x2="21" y2="18" /></svg>
+          </button>
+
           {/* Logo */}
           <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <img src="https://asukacouture.com/cdn/shop/files/Untitled_design_70x.png?v=1672665412" alt="Asuka" style={{ height: '28px' }} />
-            <span style={{ fontFamily: 'var(--font-serif)', fontSize: '24px', letterSpacing: '6px', color: '#a17a58', fontWeight: 400, textTransform: 'uppercase' }}>ASUKĀ</span>
+            <img src="https://asukacouture.com/cdn/shop/files/Untitled_design_70x.png?v=1672665412" alt="Asuka" style={{ height: '24px' }} />
+            <span style={{ fontFamily: 'var(--font-serif)', fontSize: '20px', letterSpacing: '4px', color: '#a17a58', fontWeight: 400, textTransform: 'uppercase' }} className="hidden sm:inline">ASUKĀ</span>
           </Link>
 
-          {/* Sub-nav — switches between Ethnic and Western categories */}
-          <nav style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
+          {/* Sub-nav (Desktop only) */}
+          <nav style={{ gap: '24px', alignItems: 'center' }} className="hidden lg:flex">
             {(isWestern ? WESTERN_NAV : ETHNIC_NAV).map(link => (
               <Link key={link.name} href={link.href} style={{
                 fontFamily: 'var(--font-mono)', fontSize: '10px', fontWeight: 500,
@@ -176,23 +207,59 @@ export default function Header() {
 
           {/* Right: Actions */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <Link href="/make-it-yourself" style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', letterSpacing: '1.5px', color: isWestern ? 'white' : '#a17a58', textDecoration: 'none', whiteSpace: 'nowrap' }}>✦ MAKE IT YOURSELF</Link>
-            <Link href="/sizing" style={{ background: isWestern ? 'white' : '#a17a58', color: isWestern ? '#a17a58' : 'white', padding: '8px 16px', fontSize: '9px', fontFamily: 'var(--font-mono)', letterSpacing: '2px', textDecoration: 'none', fontWeight: 600 }}>AI SIZER</Link>
+            <Link href="/make-it-yourself" style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', letterSpacing: '1.5px', color: '#a17a58', textDecoration: 'none', whiteSpace: 'nowrap' }} className="hidden sm:inline">✦ MAKE IT YOURSELF</Link>
+            <Link href="/sizing" style={{ background: '#a17a58', color: 'white', padding: '8px 16px', fontSize: '9px', fontFamily: 'var(--font-mono)', letterSpacing: '2px', textDecoration: 'none', fontWeight: 600 }} className="hidden sm:inline">AI SIZER</Link>
             {/* User */}
-            <button type="button" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px', color: isWestern ? 'white' : '#1a1410' }}>
+            <button type="button" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px', color: '#1a1410' }} className="hidden sm:block">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="7" r="4" /><path d="M2 21s2-4 10-4 10 4 10 4" /></svg>
             </button>
             {/* Search */}
-            <Link href="/search" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px', color: isWestern ? 'white' : '#1a1410', display: 'flex', alignItems: 'center' }}>
+            <Link href="/search" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px', color: '#1a1410', display: 'flex', alignItems: 'center' }}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="11" cy="11" r="7" /><path d="m16.5 16.5 4 4" /></svg>
             </Link>
             {/* Cart */}
-            <button type="button" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px', color: isWestern ? 'white' : '#1a1410' }}>
+            <button type="button" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px', color: '#1a1410' }}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" /><line x1="3" y1="6" x2="21" y2="6" /><path d="M16 10a4 4 0 0 1-8 0" /></svg>
             </button>
           </div>
         </div>
       </header>
+
+      {/* MOBILE OVERLAY MENU (Same for inner pages) */}
+      {isMenuOpen && (
+        <div style={{ position: 'fixed', inset: 0, background: 'white', zIndex: 2000, overflowY: 'auto' }}>
+          <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '20px' }}>
+            <button onClick={() => setIsMenuOpen(false)} style={{ background: 'none', border: 'none', color: '#1a1410' }}>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+            </button>
+          </div>
+          <div style={{ padding: '0 40px 40px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+              <Link href="/ethnic-home" onClick={() => setIsMenuOpen(false)} style={{ fontSize: '24px', fontFamily: 'var(--font-serif)', textDecoration: 'none', color: '#1a1410', letterSpacing: '2px' }}>ETHNIC WEAR</Link>
+              <Link href="/western-home" onClick={() => setIsMenuOpen(false)} style={{ fontSize: '24px', fontFamily: 'var(--font-serif)', textDecoration: 'none', color: '#1a1410', letterSpacing: '2px' }}>WESTERN WEAR</Link>
+              <Link href="/collections/celebrity-styles" onClick={() => setIsMenuOpen(false)} style={{ fontSize: '24px', fontFamily: 'var(--font-serif)', textDecoration: 'none', color: '#1a1410', letterSpacing: '2px' }}>CELEBRITY STYLES</Link>
+
+              <hr style={{ border: 'none', borderTop: '1px solid #eee' }} />
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <Link href="/make-it-yourself" onClick={() => setIsMenuOpen(false)} style={{ fontSize: '14px', fontFamily: 'var(--font-mono)', textDecoration: 'none', color: '#a17a58' }}>MAKE IT YOURSELF</Link>
+                <Link href="/stylist" onClick={() => setIsMenuOpen(false)} style={{ fontSize: '14px', fontFamily: 'var(--font-mono)', textDecoration: 'none', color: '#1a1410' }}>AI STYLIST</Link>
+                <Link href="/sizing" onClick={() => setIsMenuOpen(false)} style={{ fontSize: '14px', fontFamily: 'var(--font-mono)', textDecoration: 'none', color: '#1a1410' }}>AI SIZER</Link>
+                <Link href="/store-locator" onClick={() => setIsMenuOpen(false)} style={{ fontSize: '14px', fontFamily: 'var(--font-mono)', textDecoration: 'none', color: '#1a1410' }}>STORE LOCATOR</Link>
+              </div>
+
+              <div style={{ marginTop: '20px' }}>
+                <div style={{ fontSize: '12px', color: '#888', marginBottom: '16px', letterSpacing: '1px' }}>CATEGORIES</div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  {(isWestern ? WESTERN_NAV : ETHNIC_NAV).map(link => (
+                    <Link key={link.name} href={link.href} onClick={() => setIsMenuOpen(false)} style={{ fontSize: '14px', fontFamily: 'var(--font-mono)', textDecoration: 'none', color: '#1a1410', textTransform: 'uppercase' }}>{link.name}</Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   )
 }

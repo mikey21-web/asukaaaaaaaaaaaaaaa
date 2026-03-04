@@ -18,20 +18,20 @@ export default function Home() {
       <main style={{ background: 'white' }}>
 
         {/* ═══ 1. HERO — 95vh promo grid (Ethnic + Western) ═══ */}
-        <section style={{ position: 'relative', height: '95vh', display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
+        <section className="relative min-h-[95vh] grid grid-cols-1 md:grid-cols-2">
           {/* Ethnic half */}
           <Link href="/ethnic-home" onMouseEnter={() => setHeroTab('ethnic')}
-            style={{ position: 'relative', overflow: 'hidden', textDecoration: 'none', display: 'block' }}>
+            className="relative overflow-hidden block h-[50vh] md:h-auto">
             <img src={HERO_ETHNIC} alt="Ethnic Wear"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0, transition: 'all 0.5s ease', transform: heroTab === 'ethnic' ? 'scale(1.02)' : 'scale(1)' }} />
-            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 60%)' }} />
+              className={`w-full h-full object-cover absolute inset-0 transition-all duration-500 ${heroTab === 'ethnic' ? 'scale-[1.02]' : 'scale-100'}`} />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
           </Link>
           {/* Western half */}
           <Link href="/western-home" onMouseEnter={() => setHeroTab('western')}
-            style={{ position: 'relative', overflow: 'hidden', textDecoration: 'none', display: 'block' }}>
+            className="relative overflow-hidden block h-[50vh] md:h-auto">
             <img src={HERO_WESTERN} alt="Western Wear"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0, transition: 'all 0.5s ease', transform: heroTab === 'western' ? 'scale(1.02)' : 'scale(1)' }} />
-            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 60%)' }} />
+              className={`w-full h-full object-cover absolute inset-0 transition-all duration-500 ${heroTab === 'western' ? 'scale-[1.02]' : 'scale-100'}`} />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
           </Link>
         </section>
 
@@ -41,7 +41,7 @@ export default function Home() {
             <div className="section-header" style={{ textAlign: 'center', marginBottom: '40px' }}>
               <h2 style={{ fontFamily: 'var(--font-sans)', fontSize: '28px', fontWeight: 400, color: '#1a1410', letterSpacing: '2px', textTransform: 'uppercase', margin: 0 }}>Spotted in asuka</h2>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '24px' }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {celebrities.map(c => (
                 <ProductCard key={c.id} product={c} />
               ))}
@@ -76,22 +76,18 @@ export default function Home() {
             <div style={{ textAlign: 'center', marginBottom: '40px' }}>
               <h2 style={{ fontFamily: 'var(--font-sans)', fontSize: '28px', fontWeight: 400, color: '#1a1410', letterSpacing: '2px', textTransform: 'uppercase', margin: 0 }}>STORE LOCATOR</h2>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '24px', marginBottom: '40px' }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
               {STORES.map(s => (
-                <div key={s.city} style={{ textAlign: 'center' }}>
+                <div key={s.city} className="text-center">
                   <a href={s.map} target="_blank" rel="noopener noreferrer">
-                    <div style={{ overflow: 'hidden', marginBottom: '16px' }}>
-                      <img src={s.img} alt={s.city} style={{ width: '100%', height: 'auto', display: 'block' }} />
+                    <div className="overflow-hidden mb-4">
+                      <img src={s.img} alt={s.city} className="w-full h-auto block" />
                     </div>
                   </a>
-                  <h3 style={{ fontFamily: 'var(--font-sans)', fontSize: '21px', fontWeight: 400, color: '#1a1410', textTransform: 'lowercase', marginBottom: '8px' }}>{s.city}</h3>
-                  <p style={{ fontFamily: 'var(--font-sans)', fontSize: '15px', fontWeight: 400, color: '#1a1410', lineHeight: 1.6, marginBottom: '4px' }}>{s.address}</p>
-                  <p style={{ fontFamily: 'var(--font-sans)', fontSize: '15px', fontWeight: 400, color: '#1a1410', lineHeight: 1.6, marginBottom: '16px' }}>{s.hours}</p>
-                  <a href={s.map} target="_blank" rel="noopener noreferrer" style={{
-                    display: 'inline-block', padding: '10px 24px', border: '1px solid #1a1410',
-                    fontFamily: 'var(--font-sans)', fontSize: '12px', fontWeight: 400, letterSpacing: '2px',
-                    textTransform: 'lowercase', color: '#1a1410', textDecoration: 'none',
-                  }}>get directions</a>
+                  <h3 className="font-sans text-[21px] font-normal text-[#1a1410] lowercase mb-2">{s.city}</h3>
+                  <p className="font-sans text-[15px] font-normal text-[#1a1410] leading-relaxed mb-1">{s.address}</p>
+                  <p className="font-sans text-[15px] font-normal text-[#1a1410] leading-relaxed mb-4">{s.hours}</p>
+                  <a href={s.map} target="_blank" rel="noopener noreferrer" className="inline-block px-6 py-2 border border-[#1a1410] font-sans text-[12px] font-normal tracking-[2px] lowercase text-[#1a1410] no-underline">get directions</a>
                 </div>
               ))}
             </div>

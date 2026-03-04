@@ -18,21 +18,23 @@ function ProductRow({
   const products = getFeaturedProducts(collectionHandle, 6)
 
   return (
-    <section style={{ padding: '80px 0', background: bg }}>
-      <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', padding: '0 60px', marginBottom: '40px' }}>
-        <div>
-          {subtitle && <div style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', letterSpacing: '4px', color: '#a17a58', textTransform: 'uppercase', marginBottom: '10px' }}>{subtitle}</div>}
-          <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '36px', fontWeight: 300, color: '#1a1410', margin: 0 }}>{title}</h2>
+    <section className={`py-12 sm:py-16 md:py-20 ${bg === '#FAF6F1' ? 'bg-[#FAF6F1]' : ''}`}>
+      <div className="page-width mb-10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            {subtitle && <div className="font-mono text-[10px] tracking-[4px] text-[#a17a58] uppercase mb-2">{subtitle}</div>}
+            <h2 className="font-serif font-light text-[#1a1410] m-0 text-3xl sm:text-4xl">{title}</h2>
+          </div>
+          <Link href={viewAllHref} className="font-mono text-[10px] tracking-[2px] uppercase text-[#a17a58] no-underline border-b border-[#a17a58] pb-0.5 self-start md:self-auto">View All</Link>
         </div>
-        <Link href={viewAllHref} style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', letterSpacing: '2px', textTransform: 'uppercase', color: '#a17a58', textDecoration: 'none', borderBottom: '1px solid #a17a58', paddingBottom: '2px' }}>View All</Link>
       </div>
 
       {products.length === 0 ? (
-        <div style={{ padding: '0 60px', fontFamily: 'var(--font-mono)', fontSize: '13px', color: '#888' }}>
+        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: '#888' }} className="px-6 sm:px-10">
           More products coming soon.
         </div>
       ) : (
-        <div style={{ display: 'flex', gap: '20px', overflowX: 'auto', padding: '0 60px 16px', scrollSnapType: 'x mandatory', scrollbarWidth: 'none' }}>
+        <div style={{ display: 'flex', gap: '20px', overflowX: 'auto', paddingBottom: '16px', scrollSnapType: 'x mandatory', scrollbarWidth: 'none' }} className="px-6 sm:px-10">
           {products.map(p => {
             return (
               <Link key={p.id} href={`/products/${p.handle}`} style={{ flex: '0 0 280px', scrollSnapAlign: 'start', textDecoration: 'none', display: 'block' }}>
@@ -85,22 +87,20 @@ export default function WesternHome() {
         </section>
 
         {/* ── Shop by Category – 3-col grid ── */}
-        <section style={{ background: '#FAF6F1', padding: '80px 60px' }}>
-          <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', letterSpacing: '4px', color: '#a17a58', textTransform: 'uppercase', marginBottom: '12px' }}>COLLECTION</div>
-            <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '40px', fontWeight: 300, color: '#1a1410', margin: 0 }}>Shop by Category</h2>
+        <section className="bg-[#FAF6F1] py-16 md:py-24 px-6 md:px-10">
+          <div className="text-center mb-12">
+            <div className="font-mono text-[10px] tracking-[4px] text-[#a17a58] uppercase mb-3">COLLECTION</div>
+            <h2 className="font-serif font-light text-[#1a1410] m-0 text-3xl sm:text-4xl md:text-5xl">Shop by Category</h2>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', maxWidth: '1400px', margin: '0 auto' }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-[1400px] mx-auto">
             {CATEGORIES.map(c => (
-              <Link key={c.name} href={c.href} style={{ textDecoration: 'none', display: 'block' }}>
-                <div style={{ position: 'relative', aspectRatio: '3/4', overflow: 'hidden' }}>
+              <Link key={c.name} href={c.href} className="no-underline block group">
+                <div className="relative aspect-[3/4] overflow-hidden">
                   <img src={c.img} alt={c.name}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.6s ease' }}
-                    onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
-                    onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.2)', display: 'flex', alignItems: 'flex-end', padding: '24px' }}>
-                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', letterSpacing: '3px', color: 'white', fontWeight: 600 }}>{c.name}</span>
+                  <div className="absolute inset-0 bg-black/20 flex items-end p-6">
+                    <span className="font-mono text-[12px] tracking-[3px] shadow-sm text-white font-semibold">{c.name}</span>
                   </div>
                 </div>
               </Link>
@@ -115,9 +115,9 @@ export default function WesternHome() {
         <ProductRow title="Casual Suits" subtitle="RELAXED TAILORING" collectionHandle="casual-suits-for-men" viewAllHref="/collections/casual-suits-for-men" bg="#FAF6F1" />
 
         {/* ── Store + Appointment CTA ── */}
-        <section style={{ background: '#1a1410', padding: '100px 60px', textAlign: 'center' }}>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', letterSpacing: '4px', color: '#a17a58', textTransform: 'uppercase', marginBottom: '16px' }}>VISIT US</div>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '60px', marginBottom: '48px', flexWrap: 'wrap' }}>
+        <section style={{ background: '#1a1410' }} className="py-16 px-6 sm:py-24 sm:px-10">
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', letterSpacing: '4px', color: '#a17a58', textTransform: 'uppercase', marginBottom: '16px', textAlign: 'center' }}>VISIT US</div>
+          <div style={{ justifyContent: 'center', gap: '40px', marginBottom: '48px' }} className="flex flex-col sm:flex-row flex-wrap">
             {[
               { city: 'MUMBAI', area: 'S.V Road, Santacruz West', map: 'https://maps.app.goo.gl/XxKsrqs3pzGzHX8g9' },
               { city: 'HYDERABAD', area: 'Road No. 2, Banjara Hills', map: 'https://maps.app.goo.gl/nEV8AzH19hFMDpgNA' },
@@ -130,9 +130,11 @@ export default function WesternHome() {
               </div>
             ))}
           </div>
-          <Link href="/pages/book-an-appointment" style={{ display: 'inline-block', padding: '16px 56px', border: '1px solid #a17a58', color: '#a17a58', fontFamily: 'var(--font-mono)', fontSize: '11px', letterSpacing: '3px', textTransform: 'uppercase', textDecoration: 'none' }}>
-            Book an Appointment
-          </Link>
+          <div style={{ textAlign: 'center' }}>
+            <Link href="/pages/book-an-appointment" style={{ display: 'inline-block', padding: '16px 56px', border: '1px solid #a17a58', color: '#a17a58', fontFamily: 'var(--font-mono)', fontSize: '11px', letterSpacing: '3px', textTransform: 'uppercase', textDecoration: 'none' }}>
+              Book an Appointment
+            </Link>
+          </div>
         </section>
 
       </main>

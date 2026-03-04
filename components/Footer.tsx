@@ -4,9 +4,12 @@ import { FOOTER_CONTACT, FOOTER_LEGALS } from '@/lib/site-data'
 
 export default function Footer() {
   return (
-    <footer style={{ background: '#1a1410', color: '#fffdfd', padding: '80px 40px 40px', borderTop: '1px solid rgba(143,101,77,0.1)' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '40px', marginBottom: '60px' }}>
+    <footer
+      style={{ background: '#1a1410', color: '#fffdfd', borderTop: '1px solid rgba(143,101,77,0.1)' }}
+      className="py-16 px-6 sm:py-24 sm:px-10"
+    >
+      <div className="max-w-[1200px] mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 sm:gap-10 mb-16">
 
           {/* Contact Us */}
           <div>
@@ -80,11 +83,11 @@ export default function Footer() {
         </div>
 
         {/* Payment + Copyright */}
-        <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '24px', gap: '20px' }} className="flex flex-col sm:flex-row justify-between items-center">
           <div style={{ fontFamily: 'var(--font-sans)', fontSize: '12px', color: 'rgba(255,255,255,0.4)' }}>
             © {new Date().getFullYear()} Asuka Couture
           </div>
-          <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
             {['Visa', 'Mastercard', 'PayPal', 'Google Pay'].map(name => (
               <span key={name} style={{ fontFamily: 'var(--font-sans)', fontSize: '10px', color: 'rgba(255,255,255,0.4)', padding: '4px 8px', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '2px' }}>{name}</span>
             ))}
