@@ -64,11 +64,11 @@ lib/
 ### POST /api/sync
 → Syncs Shopify products to MongoDB (needs SHOPIFY_STORE_URL + SHOPIFY_ADMIN_TOKEN)
 
-## Netlify Deployment
+## Vercel Deployment
 1. Push to GitHub
-2. Connect repo in Netlify dashboard
-3. Add all env vars from .env.example in Netlify → Site Settings → Environment Variables
-4. Deploy — netlify.toml handles the rest
+2. Connect repo in Vercel dashboard
+3. Add all env vars from .env.example in Vercel → Project Settings → Environment Variables
+4. Deploy — vercel.json handles the rest
 
 ## MongoDB Collections
 - sizer_logs
