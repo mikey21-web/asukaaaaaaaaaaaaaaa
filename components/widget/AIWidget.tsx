@@ -5,7 +5,7 @@ import VoiceInput from '../ai/VoiceInput'
 import { ASUKA_PRODUCTS } from '@/lib/groq'
 
 /* ── TYPES ── */
-type Tab = 'sizer' | 'style' | 'make'
+type Tab = 'sizer' | 'style'
 type ChatMsg = { role: 'user' | 'assistant'; content: string; products?: string[] }
 const SIZES = ['XS', 'S', 'M', 'L', 'XL', 'XXL']
 
@@ -498,13 +498,13 @@ export default function AIWidget({ initialTab = 'style', isFloating = false }: {
     <div className={`w-full flex flex-col bg-[#FAF6F1] overflow-hidden ${isFloating ? 'h-full sm:rounded-2xl' : 'border border-[#d4c4b0] shadow-sm rounded-xl min-h-[500px]'}`}>
       {/* Tab Switcher / Header */}
       <div className="flex items-center bg-[#f5ede3] border-b border-[#d4c4b0] flex-shrink-0">
-        {(['style', 'make', 'sizer'] as Tab[]).map(t => (
+        {(['style', 'sizer'] as Tab[]).map(t => (
           <button
             key={t}
             onClick={() => setPersona(t)}
             className={`flex-1 py-3 sm:py-4 px-2 text-[8px] sm:text-[9px] font-mono tracking-[1.5px] uppercase transition-all border-b-2 ${persona === t ? 'border-[#a17a58] text-[#a17a58] font-bold bg-white/30' : 'border-transparent text-[#999] hover:text-[#a17a58]'}`}
           >
-            {t === 'style' ? 'AI Stylist' : t === 'make' ? 'Atelier' : 'Fit Finder'}
+            {t === 'style' ? 'AI Stylist' : 'Fit Finder'}
           </button>
         ))}
       </div>
@@ -518,14 +518,11 @@ export default function AIWidget({ initialTab = 'style', isFloating = false }: {
         ) : (
           <ChatPanel
             key={persona}
-            endpoint={persona === 'style' ? '/api/stylist' : '/api/miy-chat'}
-            persona={persona}
-            showPreview={persona === 'make'}
-            quickPrompts={persona === 'style'
-              ? ['Wedding guest', 'Groom · sangeet', 'Office ethnic', 'Beach wedding', 'Eid look', 'Diwali party']
-              : ['Luxury Bandhgala', 'Modern Sherwani', 'Silk Kurta Set', 'Velvet Tuxedo', 'Asymmetric Indo', 'Embroidered Jodhpuri']
-            }
-            systemHeight={isFloating ? (persona === 'make' ? 180 : 240) : 300}
+            endpoint="/api/stylist"
+            persona="style"
+            showPreview={false}
+            quickPrompts={['Wedding guest', 'Groom · sangeet', 'Office ethnic', 'Beach wedding', 'Eid look', 'Diwali party']}
+            systemHeight={isFloating ? 240 : 300}
           />
         )}
       </div>
@@ -548,8 +545,8 @@ export default function AIWidget({ initialTab = 'style', isFloating = false }: {
         <>
           {/* Mobile Overlay */}
           <div className="fixed inset-0 bg-black/40 z-[9998] sm:hidden animate-fadeIn" onClick={() => setOpen(false)} />
-          {/* Mobile vs Desktop Floating Wrapper */}
-          <div className="fixed inset-0 sm:inset-auto sm:bottom-24 sm:right-7 z-[9999] w-full sm:w-[380px] sm:h-[380px] sm:max-h-[calc(100vh-120px)] flex flex-col animate-panelOpen shadow-2xl sm:rounded-2xl overflow-hidden sm:border border-[#e0d5c8] bg-white">
+          {/* Mobile vs Desktop Floating Wrapper - Clean Bottom Sheet Style */}
+          <div className="fixed bottom-0 left-0 right-0 sm:left-auto sm:bottom-24 sm:right-7 z-[9999] w-full sm:w-[380px] h-[85vh] sm:h-[600px] max-h-[85vh] flex flex-col animate-panelOpen shadow-[0_-10px_40px_rgba(0,0,0,0.15)] sm:shadow-2xl rounded-t-2xl sm:rounded-2xl overflow-hidden border border-[#e0d5c8] bg-white sm:mt-0">
             <button onClick={() => setOpen(false)} className="absolute top-2 right-2 sm:top-4 sm:right-4 z-[100] w-8 h-8 flex items-center justify-center bg-[#f5ede3] rounded-full text-[#a17a58] hover:bg-[#a17a58] hover:text-white transition-colors">✕</button>
             {widgetContent}
           </div>

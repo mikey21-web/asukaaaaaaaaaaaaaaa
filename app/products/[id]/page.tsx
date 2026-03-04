@@ -114,8 +114,8 @@ export default function ProductPage() {
                                     <span style={{ fontFamily: 'var(--font-sans)', fontSize: '13px', fontWeight: 500, color: BRAND_INK, textTransform: 'uppercase', letterSpacing: '1px' }}>Size</span>
                                     <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
                                         <button type="button" onClick={() => setShowAISizer(!showAISizer)}
-                                            style={{ background: 'none', border: 'none', color: BRAND_COPPER, fontFamily: 'var(--font-sans)', fontSize: '12px', fontWeight: 500, cursor: 'pointer', textDecoration: 'underline', textUnderlineOffset: '3px' }}>
-                                            🤖 AI Size Finder
+                                            style={{ background: 'none', border: 'none', color: BRAND_COPPER, fontFamily: 'var(--font-sans)', fontSize: '12px', fontWeight: 500, cursor: 'pointer', textDecoration: 'underline', textUnderlineOffset: '3px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg> AI Size Finder
                                         </button>
                                         <span style={{ fontFamily: 'var(--font-sans)', fontSize: '12px', color: '#999' }}>|</span>
                                         <a href="https://wa.me/919063356542" target="_blank" rel="noopener noreferrer"
@@ -163,17 +163,16 @@ export default function ProductPage() {
                                     onMouseLeave={e => e.currentTarget.style.background = BRAND_INK}>
                                     ADD TO CART
                                 </button>
-                                <button type="button" onClick={() => window.dispatchEvent(new CustomEvent('openAsukaPanel', { detail: { tab: 'make' } }))} style={{
+                                <Link href="/make-it-yourself" style={{
                                     width: '100%', height: '54px', background: 'white', color: BRAND_INK, border: `1px solid ${BRAND_COPPER}`,
                                     fontFamily: 'var(--font-sans)', fontSize: '13px', fontWeight: 500, letterSpacing: '2px', textTransform: 'uppercase', cursor: 'pointer', transition: 'all 0.3s',
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', textDecoration: 'none',
                                 }}
                                     onMouseEnter={e => { e.currentTarget.style.background = BRAND_COPPER; e.currentTarget.style.color = 'white'; }}
                                     onMouseLeave={e => { e.currentTarget.style.background = 'white'; e.currentTarget.style.color = BRAND_INK; }}>
-                                    <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-                                        MAKE IT YOURSELF
-                                    </span>
-                                </button>
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                                    MAKE IT YOURSELF
+                                </Link>
                                 <a href={`https://wa.me/919063356542?text=Hi, I'm interested in ${encodeURIComponent(product.title)} (${formatPrice(product.price)})`}
                                     target="_blank" rel="noopener noreferrer"
                                     style={{
