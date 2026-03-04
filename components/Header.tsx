@@ -39,15 +39,30 @@ export default function Header() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  const [announcementIdx, setAnnouncementIdx] = useState(0)
+  const ANNOUNCEMENTS = [
+    'HYDERABAD \u00a0|\u00a0 MUMBAI \u00a0|\u00a0 AHMEDABAD',
+    'FREE SHIPPING ON ORDERS ABOVE ₹15,000',
+    'NEW ARRIVALS — WEDDING COLLECTION 2025',
+    'BOOK A PERSONAL STYLING SESSION TODAY',
+  ]
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setAnnouncementIdx(i => (i + 1) % ANNOUNCEMENTS.length)
+    }, 4000)
+    return () => clearInterval(timer)
+  }, [ANNOUNCEMENTS.length])
+
   /* ══ HOMEPAGE — transparent floating header, overlays hero ══ */
   if (isHome) {
     return (
       <>
-        {/* Brown announcement bar — stays at top, not sticky */}
-        <div className="bg-[#a17a58] text-white text-center relative z-[1002] py-2.5">
-          <a href="/store-locator" className="font-mono text-[11px] tracking-[3px] font-medium text-white no-underline">
-            HYDERABAD &nbsp;|&nbsp; MUMBAI &nbsp;|&nbsp; AHMEDABAD
-          </a>
+        {/* Brown announcement bar — rotates messages */}
+        <div className="bg-[#a17a58] text-white text-center relative z-[1002] py-2.5 overflow-hidden h-[36px]">
+          <div key={announcementIdx} className="font-mono text-[11px] tracking-[3px] font-medium text-white animate-fadeUp">
+            {ANNOUNCEMENTS[announcementIdx]}
+          </div>
         </div>
 
         {/* Minimal floating header — matches original asukacouture.com homepage */}

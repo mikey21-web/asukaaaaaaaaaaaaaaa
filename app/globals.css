@@ -339,3 +339,118 @@ input[type="checkbox"] {
 input[type="radio"] {
   accent-color: #a17a58;
 }
+
+/* ── SHIMMER LOADING SKELETON ── */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #f5ede3 25%, #efe5d8 37%, #f5ede3 63%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: 4px;
+}
+
+/* ── PARALLAX HERO ── */
+.parallax-hero {
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+}
+
+@media (max-width: 768px) {
+  .parallax-hero {
+    background-attachment: scroll;
+  }
+}
+
+/* ── ANNOUNCEMENT BAR ROTATION ── */
+@keyframes announceFade {
+
+  0%,
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  20%,
+  25% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+
+  30%,
+  35% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
+  40%,
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── BREADCRUMB ── */
+.breadcrumb {
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #999;
+  padding: 16px 0;
+}
+
+.breadcrumb a {
+  color: #a17a58;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.breadcrumb a:hover {
+  color: #1a1410;
+}
+
+.breadcrumb span {
+  margin: 0 8px;
+  color: #ccc;
+}
+
+/* ── PAGE TRANSITION FADE ── */
+@keyframes pageIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-enter {
+  animation: pageIn 0.4s ease forwards;
+}
+
+/* ── IMAGE ZOOM ON HOVER (Product Pages) ── */
+.zoom-container {
+  overflow: hidden;
+  cursor: zoom-in;
+}
+
+.zoom-container img {
+  transition: transform 0.5s ease;
+}
+
+.zoom-container:hover img {
+  transform: scale(1.15);
+}
