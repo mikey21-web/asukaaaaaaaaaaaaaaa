@@ -8,7 +8,8 @@ import Link from 'next/link'
 import { getProductByHandle } from '@/lib/catalog'
 import { formatPrice } from '@/lib/site-data'
 
-const TEAL = '#609696'
+const TEAL = '#5f9ea0'
+const ETHNIC_BROWN = '#8f654d'
 const DARK_INK = '#1a1410'
 const SIZES = ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL', '5XL', '6XL']
 
@@ -110,7 +111,7 @@ export default function ProductPage() {
                                     <button
                                         key={s}
                                         onClick={() => setSelectedSize(s)}
-                                        className={`h-10 text-[11px] border font-mono transition-all duration-300 ${selectedSize === s ? (isWestern ? 'border-[#609696] bg-[#609696] text-white' : 'border-black bg-black text-white') : 'border-[#ddd] hover:border-black'}`}
+                                        className={`h-10 text-[11px] border font-mono transition-all duration-300 ${selectedSize === s ? (isWestern ? 'border-[#5f9ea0] bg-[#5f9ea0] text-white' : 'border-black bg-black text-white') : 'border-[#ddd] hover:border-black'}`}
                                     >
                                         {s}
                                     </button>
@@ -129,10 +130,10 @@ export default function ProductPage() {
 
                         {/* CTA Buttons */}
                         <div className="flex flex-col gap-3 mb-12">
-                            <button className={`w-full py-5 border ${isWestern ? 'border-[#609696] text-[#609696]' : 'border-black text-black'} text-[13px] font-mono tracking-[3px] uppercase font-bold hover:opacity-70 transition-all`}>
+                            <button className={`w-full py-5 border ${isWestern ? 'border-[#5f9ea0] text-[#5f9ea0]' : 'border-black text-black'} text-[13px] font-mono tracking-[3px] uppercase font-bold hover:opacity-70 transition-all`}>
                                 Add To Cart
                             </button>
-                            <button className={`w-full py-5 ${isWestern ? 'bg-[#609696]' : 'bg-black'} text-white text-[13px] font-mono tracking-[3px] uppercase font-bold hover:opacity-90 transition-all`}>
+                            <button className={`w-full py-5 ${isWestern ? 'bg-[#5f9ea0]' : 'bg-black'} text-white text-[13px] font-mono tracking-[3px] uppercase font-bold hover:opacity-90 transition-all`}>
                                 Buy It Now
                             </button>
                         </div>
@@ -146,7 +147,7 @@ export default function ProductPage() {
                                 { title: '3. Care', content: 'Dry clean only. Store in a cool, dry place away from direct sunlight.' }
                             ].map((item, i) => (
                                 <details key={i} className="group border-b border-[#eee] py-4 cursor-pointer">
-                                    <summary className={`flex justify-between items-center text-[12px] font-mono tracking-[2px] uppercase list-none transition-colors ${isWestern ? 'text-[#609696]' : 'text-[#1a1410]'}`}>
+                                    <summary className={`flex justify-between items-center text-[12px] font-mono tracking-[2px] uppercase list-none transition-colors ${isWestern ? 'text-[#5f9ea0]' : 'text-[#1a1410]'}`}>
                                         {item.title}
                                         <span className="text-xl font-light scale-y-75 group-open:rotate-45 transition-transform">+</span>
                                     </summary>

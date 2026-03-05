@@ -32,6 +32,7 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const isHome = pathname === '/'
   const isWestern = pathname?.includes('western') || pathname?.includes('shirts') || pathname?.includes('tuxedo') || pathname?.includes('jackets') || pathname?.includes('casual-suits') || pathname?.includes('co-ord') || pathname?.includes('suit-set')
+  const isEthnic = !isHome && !isWestern
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 60)
@@ -59,7 +60,7 @@ export default function Header() {
     return (
       <>
         {/* Brown announcement bar — exact static match from screenshot */}
-        <div className="bg-[#a57a5a] text-white text-center relative z-[1002] py-2.5 overflow-hidden h-[36px] flex items-center justify-center">
+        <div className="announcement-bar bg-[#a57a5a] text-white text-center relative z-[1002] py-2.5 overflow-hidden h-[36px] flex items-center justify-center">
           <div className="font-mono text-[10px] tracking-[3px] font-bold text-white/90">
             HYDERABAD &nbsp;&nbsp;|&nbsp;&nbsp; MUMBAI &nbsp;&nbsp;|&nbsp;&nbsp; AHMEDABAD
           </div>
@@ -141,14 +142,14 @@ export default function Header() {
   /* ══ INNER PAGES — Standard Asuka Layout ══ */
   return (
     <>
-      <div className="bg-black text-white text-[10px] uppercase font-mono tracking-[2px] flex w-full border-b border-white/10 z-[1002]">
-        <Link href="/ethnic-home" className={`flex-1 py-2 text-center transition-colors ${!isWestern ? 'bg-white/10 text-white' : 'text-white/60 hover:text-white'}`}>Ethnic Wear</Link>
-        <Link href="/western-home" className={`flex-1 py-2 text-center transition-colors ${isWestern ? 'bg-[#609696] text-white' : 'text-white/60 hover:text-white'}`}>Western Wear</Link>
+      <div className="announcement-bar bg-black text-white text-[10px] uppercase font-mono tracking-[2px] flex w-full border-b border-white/10 z-[1002]">
+        <Link href="/ethnic-home" className={`flex-1 py-2 text-center transition-colors ${!isWestern ? 'bg-[#8f654d] text-white' : 'text-white/60 hover:text-white'}`}>Ethnic Wear</Link>
+        <Link href="/western-home" className={`flex-1 py-2 text-center transition-colors ${isWestern ? 'bg-[#5f9ea0] text-white' : 'text-white/60 hover:text-white'}`}>Western Wear</Link>
       </div>
 
       {/* Main Header Container */}
       <header
-        className={`sticky top-0 z-[1001] transition-all duration-300 ${isWestern ? 'bg-[#609696] text-white shadow-lg shadow-black/5' : 'bg-white text-[#1a1410] border-b border-[#eee]'} ${isScrolled ? 'py-1' : 'py-0'}`}
+        className={`sticky top-0 z-[1001] transition-all duration-300 py-3 ${isWestern ? 'bg-[#5f9ea0] text-white shadow-lg' : isEthnic ? 'bg-[#8f654d] text-white shadow-lg' : 'bg-white text-[#1a1410] border-b border-[#eee]'} ${isScrolled ? 'py-1' : 'py-3'}`}
       >
         <div className="flex items-center justify-between px-5 h-16 max-w-[1600px] mx-auto">
           {/* MOBILE ONLY: Hamburger */}
@@ -159,7 +160,7 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 no-underline">
             {/* Lotus Mark */}
-            <img src="https://asukacouture.com/cdn/shop/files/Untitled_design_70x.png" alt="Asuka" className={`h-[28px] ${isWestern ? 'brightness-100 invert' : ''}`} />
+            <img src="https://asukacouture.com/cdn/shop/files/Untitled_design_70x.png" alt="Asuka" className={`h-[28px] ${(isWestern || isEthnic) ? 'brightness-100 invert' : ''}`} />
             <span className="font-serif text-[22px] tracking-[5px] font-light uppercase text-current hidden sm:inline">ASUKĀ</span>
           </Link>
 
@@ -213,7 +214,7 @@ export default function Header() {
             {/* Cart */}
             <button type="button" className="bg-transparent border-none cursor-pointer p-1 text-current relative">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" /><line x1="3" y1="6" x2="21" y2="6" /><path d="M16 10a4 4 0 0 1-8 0" /></svg>
-              <span className={`absolute -top-1 -right-1 flex h-[15px] w-[15px] items-center justify-center rounded-full text-[9px] font-mono font-bold ${isWestern ? 'bg-white text-[#609696]' : 'bg-[#1a1410] text-white'}`}>
+              <span className={`absolute -top-1 -right-1 flex h-[15px] w-[15px] items-center justify-center rounded-full text-[9px] font-mono font-bold ${isWestern ? 'bg-white text-[#5f9ea0]' : isEthnic ? 'bg-white text-[#8f654d]' : 'bg-[#1a1410] text-white'}`}>
                 0
               </span>
             </button>
