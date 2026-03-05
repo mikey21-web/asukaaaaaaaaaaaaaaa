@@ -20,12 +20,12 @@ export default function Home() {
 
         {/* ═══ 1. HERO — 95vh promo grid (Ethnic + Western) ═══ */}
         <section className="relative min-h-[95vh] grid grid-cols-1 md:grid-cols-2">
-          <div className="absolute inset-x-0 bottom-[15vh] z-20 flex flex-col items-center gap-6 animate-fadeUp delay-300">
-            <div className="flex flex-wrap justify-center gap-4 px-4">
-              <Link href="/make-it-yourself" className="px-8 py-3 bg-white text-[#1a1410] font-mono text-[11px] tracking-[3px] uppercase hover:bg-[#a17a58] hover:text-white transition-all border border-white">
+          <div className="absolute inset-x-0 bottom-12 sm:bottom-[15vh] z-[50] flex flex-col items-center gap-6 animate-fadeUp delay-300 w-full">
+            <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 px-4 w-full max-w-[500px]">
+              <Link href="/make-it-yourself" className="w-full sm:w-auto text-center px-8 py-4 sm:py-3 bg-white text-[#1a1410] font-mono text-[13px] sm:text-[11px] tracking-[3px] uppercase hover:bg-[#a17a58] hover:text-white transition-all border border-white shadow-lg">
                 Make It Yourself
               </Link>
-              <Link href="/sizing" className="px-8 py-3 bg-transparent text-white font-mono text-[11px] tracking-[3px] uppercase hover:bg-white hover:text-[#1a1410] transition-all border border-white">
+              <Link href="/sizing" className="w-full sm:w-auto text-center px-8 py-4 sm:py-3 bg-black/40 backdrop-blur-md sm:bg-transparent text-white font-mono text-[13px] sm:text-[11px] tracking-[3px] uppercase hover:bg-white hover:text-[#1a1410] transition-all border border-white shadow-lg">
                 AI Sizer Finder
               </Link>
             </div>

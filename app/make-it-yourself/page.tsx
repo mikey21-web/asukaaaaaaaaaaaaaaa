@@ -52,8 +52,10 @@ export default function MakeItYourself() {
     const chatEndRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
-        chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-    }, [chatLog, loading, looks])
+        if (step === 3 && chatLog.length > 0) {
+            chatEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
+        }
+    }, [chatLog.length, loading, looks.length, step])
 
     const handleFetchLooks = async () => {
         if (!msg.trim()) return
