@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import ProductCard from '@/components/ProductCard' // Added this import
 import { HERO_ETHNIC, HERO_WESTERN, STORES, BRAND_SLIDER_IMAGES, formatPrice } from '@/lib/site-data'
 import { getCelebrityProducts, type CatalogProduct } from '@/lib/catalog'
 import DigitalStylistSection from '@/components/sections/DigitalStylist'
@@ -18,40 +19,36 @@ export default function Home() {
       <Header />
       <main style={{ background: 'white' }}>
 
-        {/* ═══ 1. HERO — 95vh promo grid (Ethnic + Western) ═══ */}
-        <section className="relative min-h-[95vh] grid grid-cols-1 md:grid-cols-2">
-          <div className="absolute inset-x-0 bottom-12 sm:bottom-[15vh] z-[50] flex flex-col items-center gap-6 animate-fadeUp delay-300 w-full">
-            <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 px-4 w-full max-w-[500px]">
-              <Link href="/make-it-yourself" className="w-full sm:w-auto text-center px-8 py-4 sm:py-3 bg-white text-[#1a1410] font-mono text-[13px] sm:text-[11px] tracking-[3px] uppercase hover:bg-[#a17a58] hover:text-white transition-all border border-white shadow-lg">
+        {/* ═══ 1. 100vh FULL BLEED HERO (Match Live Site) ═══ */}
+        <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-black">
+
+          {/* Centered Typography - Exact match to live site */}
+          <div className="relative z-10 flex flex-col items-center justify-center w-full px-4 mt-[-5vh]">
+            <h1 className="font-serif text-white text-[15vw] sm:text-[10vw] md:text-[8vw] font-normal tracking-[0.2em] leading-none uppercase">
+              ASUKĀ
+            </h1>
+            <p className="font-sans text-white/80 text-[10px] sm:text-[12px] md:text-[14px] tracking-[0.4em] font-light uppercase mt-4 sm:mt-6 text-center">
+              A Ritual of Fine Dressing
+            </p>
+
+            {/* Buttons - Centered below typography */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 w-full max-w-[600px] mt-16 sm:mt-20">
+              <Link href="/make-it-yourself"
+                className="w-full sm:w-[240px] text-center px-4 py-4 bg-transparent border border-white/20 text-white/90 font-mono text-[10px] tracking-[3px] uppercase hover:border-white hover:text-white transition-all duration-300">
                 Make It Yourself
               </Link>
-              <Link href="/sizing" className="w-full sm:w-auto text-center px-8 py-4 sm:py-3 bg-black/40 backdrop-blur-md sm:bg-transparent text-white font-mono text-[13px] sm:text-[11px] tracking-[3px] uppercase hover:bg-white hover:text-[#1a1410] transition-all border border-white shadow-lg">
-                AI Sizer Finder
+              <Link href="/sizing"
+                className="w-full sm:w-[240px] text-center px-4 py-4 bg-transparent border border-white/20 text-white/90 font-mono text-[10px] tracking-[3px] uppercase hover:border-white hover:text-white transition-all duration-300">
+                AI Size Finder
               </Link>
             </div>
           </div>
-          {/* SEO H1 Overlay */}
-          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none px-4 text-center">
-            <h1 className="font-serif text-white/90 text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-light tracking-[0.15em] uppercase drop-shadow-lg animate-fadeIn">
-              Asuka <span className="italic block mt-2 text-2xl sm:text-4xl md:text-5xl opacity-80 tracking-widest">Couture</span>
-            </h1>
+
+          {/* Floating Scroll Indicator */}
+          <div className="absolute inset-x-0 bottom-8 z-20 flex flex-col items-center gap-4 text-white/40">
+            <span className="font-mono text-[9px] tracking-[3px] uppercase">Scroll To Explore</span>
+            <div className="w-[1px] h-10 bg-gradient-to-b from-white/30 to-transparent" />
           </div>
-
-          {/* Ethnic half */}
-          <Link href="/ethnic-home" onMouseEnter={() => setHeroTab('ethnic')}
-            className="relative overflow-hidden block h-[50vh] md:h-auto">
-            <Image src={HERO_ETHNIC} alt="Luxury Ethnic Wear for Men" fill priority sizes="(max-width: 768px) 100vw, 50vw"
-              className={`object-cover absolute inset-0 transition-all duration-500 ${heroTab === 'ethnic' ? 'scale-[1.05]' : 'scale-100'}`} />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-          </Link>
-          {/* Western half */}
-          <Link href="/western-home" onMouseEnter={() => setHeroTab('western')}
-            className="relative overflow-hidden block h-[50vh] md:h-auto">
-            <Image src={HERO_WESTERN} alt="Premium Western Wear for Men" fill priority sizes="(max-width: 768px) 100vw, 50vw"
-              className={`object-cover absolute inset-0 transition-all duration-500 ${heroTab === 'western' ? 'scale-[1.05]' : 'scale-100'}`} />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-          </Link>
-
         </section>
 
         {/* ═══ 2. DIGITAL STYLIST SECTION ═══ */}
@@ -126,35 +123,5 @@ export default function Home() {
       </main>
       <Footer />
     </>
-  )
-}
-
-/* ── Reusable Product Card (matches live site grid-product) ── */
-function ProductCard({ product }: { product: CatalogProduct }) {
-  const [hovered, setHovered] = useState(false)
-  return (
-    <Link href={`/products/${product.handle}`} style={{ textDecoration: 'none', display: 'block' }}
-      onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
-      <div className="product-img-wrap" style={{ position: 'relative', overflow: 'hidden', marginBottom: '12px', background: '#f5f0e8', aspectRatio: '2/3' }}>
-        {product.first_image && product.first_image !== 'NO IMAGE' && (
-          <Image src={product.first_image} alt={product.title} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            style={{ objectFit: 'cover', objectPosition: 'top', transition: 'all 0.5s ease', transform: hovered ? 'scale(1.04)' : 'scale(1)' }} />
-        )}
-        {/* Secondary image on hover */}
-        {product.all_images[1] && (
-          <Image src={product.all_images[1]} alt="" fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            style={{ objectFit: 'cover', objectPosition: 'top', opacity: hovered ? 1 : 0, transition: 'all 0.5s ease' }} />
-        )}
-        {/* SHOP NOW button on hover */}
-        <button type="button" style={{
-          position: 'absolute', bottom: '16px', left: '50%', transform: 'translateX(-50%)',
-          padding: '10px 24px', background: 'white', border: 'none',
-          fontFamily: 'var(--font-sans)', fontSize: '11px', fontWeight: 500, letterSpacing: '2px',
-          textTransform: 'uppercase', cursor: 'pointer', opacity: hovered ? 1 : 0, transition: 'all 0.5s ease',
-        }}>SHOP NOW</button>
-      </div>
-      <div style={{ fontFamily: 'var(--font-sans)', fontSize: '13px', fontWeight: 400, color: '#1a1410', lineHeight: 1.5, marginBottom: '4px' }}>{product.title}</div>
-      <div style={{ fontFamily: 'var(--font-sans)', fontSize: '13px', fontWeight: 600, color: '#1a1410' }}>{formatPrice(product.price)}</div>
-    </Link>
   )
 }

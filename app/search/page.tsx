@@ -3,10 +3,12 @@ import { useState, useEffect } from 'react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import Link from 'next/link'
+import ProductCard from '@/components/ProductCard'
+import { searchProducts, type CatalogProduct } from '@/lib/catalog'
 
 export default function SearchPage() {
   const [query, setQuery] = useState('')
-  const [results, setResults] = useState<any[]>([])
+  const [results, setResults] = useState<CatalogProduct[]>([])
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -14,16 +16,10 @@ export default function SearchPage() {
       setResults([])
       return
     }
-    const timer = setTimeout(async () => {
+    const timer = setTimeout(() => {
       setLoading(true)
       try {
-        const res = await fetch('/data/all-products.json')
-        const all = await res.json()
-        const filtered = all.filter((p: any) =>
-          p.title.toLowerCase().includes(query.toLowerCase()) ||
-          p.product_type?.toLowerCase().includes(query.toLowerCase()) ||
-          (Array.isArray(p.tags) ? p.tags : (p.tags?.split(', ') || [])).some((t: string) => t.toLowerCase().includes(query.toLowerCase()))
-        )
+        const filtered = searchProducts(query)
         setResults(filtered.slice(0, 40))
       } catch (e) {
         console.error('Search error:', e)
@@ -58,13 +54,7 @@ export default function SearchPage() {
           ) : results.length > 0 ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6">
               {results.map(p => (
-                <Link key={p.id} href={`/products/${p.handle}`} style={{ textDecoration: 'none' }}>
-                  <div style={{ aspectRatio: '2/3', background: '#f5f0e8', marginBottom: '12px', overflow: 'hidden' }}>
-                    <img src={p.images[0]?.src} alt={p.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  </div>
-                  <div style={{ fontSize: '12px', color: '#a17a58', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>{p.title}</div>
-                  <div style={{ fontSize: '14px', color: '#1a1410', fontWeight: 600 }}>Rs. {parseFloat(p.variants[0].price).toLocaleString('en-IN')}</div>
-                </Link>
+                <ProductCard key={p.id} product={p} />
               ))}
             </div>
           ) : query && (

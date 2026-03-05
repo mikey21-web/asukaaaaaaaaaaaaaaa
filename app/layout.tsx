@@ -57,7 +57,7 @@ import { Analytics } from '@/components/VercelAnalytics'
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${cormorant.variable} ${dmMono.variable} ${outfit.variable} ${josefin.variable}`}>
-      <body>
+      <body className="bg-white text-[#1a1410] antialiased selection:bg-[#a57a5a] selection:text-white">
         {children}
         <ScrollToTop />
         <WhatsAppFloat />

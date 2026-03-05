@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import ProductCard from '@/components/ProductCard'
 import { getCollectionProducts, type CatalogProduct } from '@/lib/catalog'
 import { formatPrice, COLLECTIONS } from '@/lib/site-data'
 
@@ -43,40 +44,6 @@ const SORT_OPTIONS = [
   { value: 'price-desc', label: 'Price, high to low' },
 ]
 
-function ProductCard({ product }: { product: CatalogProduct }) {
-  const [hovered, setHovered] = useState(false)
-  return (
-    <Link href={`/products/${product.handle}`} style={{ textDecoration: 'none', display: 'block' }}
-      onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
-      <div className="product-img-wrap" style={{ position: 'relative', aspectRatio: '2/3', overflow: 'hidden', background: '#f5f0e8', marginBottom: '12px' }}>
-        {product.first_image && product.first_image !== 'NO IMAGE' && (
-          <>
-            <img src={product.first_image} alt={product.title}
-              style={{
-                width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0,
-                transition: 'all 0.5s ease', opacity: hovered && product.all_images[1] ? 0 : 1
-              }} />
-            {product.all_images[1] && (
-              <img src={product.all_images[1]} alt=""
-                style={{
-                  width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0,
-                  transition: 'all 0.5s ease', opacity: hovered ? 1 : 0
-                }} />
-            )}
-          </>
-        )}
-        <div style={{
-          position: 'absolute', bottom: 0, left: 0, right: 0, background: 'white', padding: '12px',
-          transform: hovered ? 'translateY(0)' : 'translateY(100%)', transition: 'all 0.5s ease',
-          textAlign: 'center', fontFamily: 'var(--font-sans)', fontSize: '11px', letterSpacing: '2px',
-          color: '#1a1410', textTransform: 'uppercase',
-        }}>SHOP NOW</div>
-      </div>
-      <div style={{ fontFamily: 'var(--font-sans)', fontSize: '12px', color: '#1a1410', lineHeight: 1.5, marginBottom: '4px' }}>{product.title}</div>
-      <div style={{ fontFamily: 'var(--font-sans)', fontSize: '13px', fontWeight: 600, color: '#1a1410' }}>{formatPrice(product.price)}</div>
-    </Link>
-  )
-}
 
 export default function CollectionPage() {
   const params = useParams()

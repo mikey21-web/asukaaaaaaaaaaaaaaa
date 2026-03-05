@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import ProductCard from '@/components/ProductCard'
 import { HERO_WESTERN } from '@/lib/site-data'
 
 import { getFeaturedProducts, type CatalogProduct } from '@/lib/catalog'
@@ -34,25 +35,11 @@ function ProductRow({
         </div>
       ) : (
         <div style={{ display: 'flex', gap: '20px', overflowX: 'auto', paddingBottom: '16px', scrollSnapType: 'x mandatory', scrollbarWidth: 'none' }} className="px-6 sm:px-10">
-          {products.map(p => {
-            return (
-              <Link key={p.id} href={`/products/${p.handle}`} style={{ flex: '0 0 280px', scrollSnapAlign: 'start', textDecoration: 'none', display: 'block' }}>
-                <div className="product-img-wrap" style={{ position: 'relative', aspectRatio: '2/3', overflow: 'hidden', marginBottom: '14px', background: '#f5f0e8', borderRadius: '4px', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
-                  {p.first_image && p.first_image !== 'NO IMAGE' && (
-                    <img src={p.first_image} alt={p.title}
-                      style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.6s ease' }}
-                      onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
-                      onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-                    />
-                  )}
-                </div>
-                <div style={{ fontFamily: 'var(--font-sans)', fontSize: '13px', color: '#1a1410', lineHeight: 1.4, marginBottom: '6px' }}>{p.title}</div>
-                <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                  <span style={{ fontFamily: 'var(--font-sans)', fontSize: '13px', color: '#1a1410' }}>{fmt(p.price || '0')}</span>
-                </div>
-              </Link>
-            )
-          })}
+          {products.map(p => (
+            <div key={p.id} className="flex-none w-[280px] sm:w-[320px] snap-start">
+              <ProductCard product={p} />
+            </div>
+          ))}
         </div>
       )}
       <style>{`@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}`}</style>

@@ -39,6 +39,16 @@ export default function ProductPage() {
     const [selectedSize, setSelectedSize] = useState('')
     const [mainImgIdx, setMainImgIdx] = useState(0)
     const [showAISizer, setShowAISizer] = useState(false)
+    const [addedToCart, setAddedToCart] = useState(false)
+
+    const handleAddToCart = () => {
+        if (!selectedSize) {
+            alert("Please select a size first.")
+            return
+        }
+        setAddedToCart(true)
+        setTimeout(() => setAddedToCart(false), 3000)
+    }
 
     // Sizer state — button-based steps
 
@@ -100,53 +110,46 @@ export default function ProductPage() {
                         </div>
 
                         {/* RIGHT: Product info */}
-                        <div className="md:sticky md:top-[100px]">
-                            <h1 style={{ fontFamily: 'var(--font-sans)', fontSize: '26px', fontWeight: 400, color: BRAND_INK, textTransform: 'uppercase', letterSpacing: '1px', margin: '0 0 16px' }}>
+                        <div className="md:sticky md:top-[120px]">
+                            <h1 className="font-serif text-[28px] md:text-[34px] font-normal text-[#1a1410] uppercase tracking-[1.5px] leading-tight mb-3">
                                 {product.title}
                             </h1>
-                            <div style={{ fontFamily: 'var(--font-sans)', fontSize: '22px', fontWeight: 500, color: BRAND_INK, marginBottom: '32px' }}>
+                            <div className="font-sans text-[18px] md:text-[20px] font-normal text-[#a57a5a] mb-8">
                                 {formatPrice(product.price)}
                             </div>
 
                             {/* Size selector */}
-                            <div style={{ marginBottom: '24px' }}>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px', alignItems: 'center' }}>
-                                    <span style={{ fontFamily: 'var(--font-sans)', fontSize: '13px', fontWeight: 500, color: BRAND_INK, textTransform: 'uppercase', letterSpacing: '1px' }}>Size</span>
-                                    <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+                            <div className="mb-6">
+                                <div className="flex justify-between items-center mb-3">
+                                    <span className="font-sans text-[12px] font-medium text-[#1a1410] uppercase tracking-widest">Size</span>
+                                    <div className="flex items-center gap-3">
                                         <button type="button" onClick={() => setShowAISizer(!showAISizer)}
-                                            style={{ background: 'none', border: 'none', color: BRAND_COPPER, fontFamily: 'var(--font-sans)', fontSize: '12px', fontWeight: 500, cursor: 'pointer', textDecoration: 'underline', textUnderlineOffset: '3px', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg> AI Size Finder
+                                            className="bg-transparent border-none text-[#a57a5a] font-sans text-[11px] font-medium cursor-pointer underline underline-offset-4 decoration-[#a57a5a]/30 hover:decoration-[#a57a5a] transition-all flex items-center gap-1.5">
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                                            AI Size Finder
                                         </button>
-                                        <span style={{ fontFamily: 'var(--font-sans)', fontSize: '12px', color: '#999' }}>|</span>
+                                        <span className="font-sans text-[12px] text-[#ddd]">|</span>
                                         <a href="https://wa.me/919063356542" target="_blank" rel="noopener noreferrer"
-                                            style={{ fontFamily: 'var(--font-sans)', fontSize: '12px', color: BRAND_INK, textDecoration: 'underline', textUnderlineOffset: '3px' }}>
+                                            className="font-sans text-[11px] text-[#1a1410] underline underline-offset-4 decoration-black/20 hover:decoration-black transition-all">
                                             Custom Size
                                         </a>
                                     </div>
                                 </div>
-                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '12px' }}>
+                                <div className="flex flex-wrap gap-2 mb-6">
                                     {SIZES.map(size => (
                                         <button type="button" key={size} onClick={() => setSelectedSize(size)}
-                                            style={{
-                                                minWidth: '50px', height: '42px', border: selectedSize === size ? `1px solid ${BRAND_INK}` : '1px solid #ddd',
-                                                background: selectedSize === size ? BRAND_INK : 'white',
-                                                color: selectedSize === size ? 'white' : BRAND_INK,
-                                                fontFamily: 'var(--font-sans)', fontSize: '12px', cursor: 'pointer', transition: 'all 0.2s',
-                                            }}>
+                                            className={`min-w-[50px] h-[40px] px-3 font-sans text-[11px] uppercase tracking-wider cursor-pointer border transition-colors duration-200
+                                                        ${selectedSize === size ? 'border-[#1a1410] bg-[#1a1410] text-white' : 'border-[#e0e0e0] bg-white text-[#1a1410] hover:border-black'}`}>
                                             {size}
                                         </button>
                                     ))}
                                 </div>
-                                <button type="button" onClick={() => setShowAISizer(!showAISizer)} className="flex items-center gap-2 text-[#a17a58] hover:text-[#1a1410] font-sans text-sm mb-6 pb-1 border-b border-[#a17a58]/30 hover:border-[#1a1410] transition-colors w-fit">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg>
-                                    Find Your Perfect Fit with AI
-                                </button>
 
                                 {showAISizer && (
-                                    <div className="bg-[#fcf9f6] border border-[#e8e0d6] rounded-xl p-5 mb-8 shadow-sm">
+                                    <div className="bg-[#fcf9f6] border border-[#e8e0d6] rounded-sm p-6 mb-8 animate-fadeIn">
                                         <div className="flex justify-between items-center mb-4 pb-3 border-b border-[#e8e0d6]">
                                             <h3 className="font-serif text-[#1a1410] text-lg">AI Size Consultant</h3>
-                                            <button type="button" onClick={() => setShowAISizer(false)} className="text-[#a17a58] hover:text-[#1a1410] transition-colors">✕</button>
+                                            <button type="button" onClick={() => setShowAISizer(false)} className="text-[#a57a5a] hover:text-[#1a1410] transition-colors p-2">✕</button>
                                         </div>
                                         <SizerPanel />
                                     </div>
@@ -154,34 +157,27 @@ export default function ProductPage() {
                             </div>
 
                             {/* CTA buttons */}
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '32px' }}>
-                                <button type="button" style={{
-                                    width: '100%', height: '54px', background: BRAND_INK, color: 'white', border: 'none',
-                                    fontFamily: 'var(--font-sans)', fontSize: '13px', fontWeight: 500, letterSpacing: '2px', textTransform: 'uppercase', cursor: 'pointer', transition: 'all 0.3s',
-                                }}
-                                    onMouseEnter={e => e.currentTarget.style.background = BRAND_COPPER}
-                                    onMouseLeave={e => e.currentTarget.style.background = BRAND_INK}>
-                                    ADD TO CART
+                            <div className="flex flex-col gap-3 mb-10 w-full">
+                                <button type="button" onClick={handleAddToCart}
+                                    className={`w-full h-[50px] font-sans text-[11px] font-semibold tracking-[2px] uppercase cursor-pointer transition-all duration-300 border-none
+                                                  ${addedToCart ? 'bg-[#a57a5a] text-white' : 'bg-[#1a1410] text-white hover:bg-[#a57a5a]'}`}>
+                                    {addedToCart ? 'Added to Cart!' : 'Add To Cart'}
                                 </button>
-                                <Link href="/make-it-yourself" style={{
-                                    width: '100%', height: '54px', background: 'white', color: BRAND_INK, border: `1px solid ${BRAND_COPPER}`,
-                                    fontFamily: 'var(--font-sans)', fontSize: '13px', fontWeight: 500, letterSpacing: '2px', textTransform: 'uppercase', cursor: 'pointer', transition: 'all 0.3s',
-                                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', textDecoration: 'none',
-                                }}
-                                    onMouseEnter={e => { e.currentTarget.style.background = BRAND_COPPER; e.currentTarget.style.color = 'white'; }}
-                                    onMouseLeave={e => { e.currentTarget.style.background = 'white'; e.currentTarget.style.color = BRAND_INK; }}>
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-                                    MAKE IT YOURSELF
-                                </Link>
-                                <a href={`https://wa.me/919063356542?text=Hi, I'm interested in ${encodeURIComponent(product.title)} (${formatPrice(product.price)})`}
-                                    target="_blank" rel="noopener noreferrer"
-                                    style={{
-                                        width: '100%', height: '54px', background: '#25D366', color: 'white', border: 'none',
-                                        fontFamily: 'var(--font-sans)', fontSize: '13px', fontWeight: 500, letterSpacing: '1px', textTransform: 'uppercase',
-                                        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', textDecoration: 'none',
-                                    }}>
-                                    💬 WHATSAPP INQUIRY
-                                </a>
+
+                                <div className="grid grid-cols-2 gap-3 w-full">
+                                    <Link href="/make-it-yourself"
+                                        className="w-full h-[50px] flex items-center justify-center gap-2 bg-transparent text-[#1a1410] border border-[#a57a5a] 
+                                                     font-sans text-[10px] font-semibold tracking-[1.5px] uppercase cursor-pointer transition-all duration-300 hover:bg-[#a57a5a] hover:text-white no-underline">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                                        Make It Yourself
+                                    </Link>
+                                    <a href={`https://wa.me/919063356542?text=Hi, I'm interested in ${encodeURIComponent(product.title)} (${formatPrice(product.price)})`}
+                                        target="_blank" rel="noopener noreferrer"
+                                        className="w-full h-[50px] flex items-center justify-center gap-2 bg-transparent text-[#1a1410] border border-[#1a1410] 
+                                                   font-sans text-[10px] font-semibold tracking-[1.5px] uppercase cursor-pointer transition-all duration-300 hover:bg-black hover:text-white no-underline">
+                                        WhatsApp Inquiry
+                                    </a>
+                                </div>
                             </div>
 
                             {/* Description */}
